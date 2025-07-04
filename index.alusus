@@ -1,0 +1,183 @@
+@merge module faiss {
+    class RangeSearchResult {
+    }
+
+    class IDSelector {
+    }
+
+    def FaissMetricType {
+        METRIC_INNER_PRODUCT = 0,
+        METRIC_L2 = 1,
+        METRIC_L1 = 2,
+        METRIC_Linf = 3,
+        METRIC_Lp = 4,
+        METRIC_Canberra = 20,
+        METRIC_BrayCurtis = 21,
+        METRIC_JensenShannon = 22,
+    }
+
+    @expname[faiss_SearchParameters_new]
+    func faiss_SearchParameters_new(
+        p_sp: ptr[ptr[SearchParameters]],
+        sel: ptr[IDSelector]
+    ): int;
+
+    @expname[faiss_SearchParameters_free]
+    func faiss_SearchParameters_free(
+        this: ptr[SearchParameters]
+    );
+
+    @expname[faiss_Index_free]
+    func faiss_Index_free(
+        this: ptr[Index]
+    );
+
+    @expname[faiss_Index_is_trained]
+    func faiss_Index_is_trained(
+        this: ptr[Index]
+    ): Int;
+
+    @expname[faiss_Index_metric_type]
+    func faiss_Index_metric_type(
+        this: ptr[Index]
+    ): FaissMetricType;
+
+    @expname[faiss_Index_verbose]
+    func faiss_Index_verbose(
+        this: ptr[Index]
+    ): int;
+
+    @expname[faiss_Index_set_verbose]
+    func faiss_Index_set_verbose(
+        this: ptr[Index],
+        v: int
+    );
+
+   @expname[faiss_Index_train]
+    func faiss_Index_train(
+        index: ptr[Index],
+        n: idx_t,
+        x: ptr[Float]
+    ): int;
+
+    @expname[faiss_Index_add]
+    func faiss_Index_add(
+        index: ptr[Index],
+        n: idx_t,
+        x: ptr[Float]
+    ): int;
+
+    @expname[faiss_Index_add_with_ids]
+    func faiss_Index_add_with_ids(
+        index: ptr[Index],
+        n: idx_t,
+        x: ptr[Float],
+        xids: ptr[idx_t]
+    ): int;
+
+    @expname[faiss_Index_search]
+    func faiss_Index_search(
+        index: ptr[Index],
+        n: idx_t,
+        x: ptr[Float],
+        k: idx_t,
+        distances: ptr[Float],
+        labels: ptr[idx_t]
+    ): int;
+
+    @expname[faiss_Index_search_with_params]
+    func faiss_Index_search_with_params(
+        index: ptr[Index],
+        n: idx_t,
+        x: ptr[Float],
+        k: idx_t,
+        params: ptr[SearchParameters],
+        distances: ptr[Float],
+        labels: ptr[idx_t]
+    ): int;
+
+    @expname[faiss_Index_range_search]
+    func faiss_Index_range_search(
+        index: ptr[Index],
+        n: idx_t,
+        x: ptr[Float],
+        radius: Float,
+        result: ptr[RangeSearchResult]
+    ): int;
+
+    @expname[faiss_Index_assign]
+    func faiss_Index_assign(
+        index: ptr[Index],
+        n: idx_t,
+        x: ptr[Float],
+        labels: ptr[idx_t],
+        k: idx_t
+    ): int;
+
+    @expname[faiss_Index_reset]
+    func faiss_Index_reset(
+        index: ptr[Index]
+    ): int;
+
+    @expname[faiss_Index_remove_ids]
+    func faiss_Index_remove_ids(
+        index: ptr[Index],
+        sel: ptr[IDSelector],
+        n_removed: ptr[ArchWord]
+    ): int;
+
+    @expname[faiss_Index_reconstruct]
+    func faiss_Index_reconstruct(
+        index: ptr[Index],
+        key: idx_t,
+        recons: ptr[Float]
+    ): int;
+
+    @expname[faiss_Index_reconstruct_n]
+    func faiss_Index_reconstruct_n(
+        index: ptr[Index],
+        i0: idx_t,
+        ni: idx_t,
+        recons: ptr[Float]
+    ): int;
+
+    @expname[faiss_Index_compute_residual]
+    func faiss_Index_compute_residual(
+        index: ptr[Index],
+        x: ptr[Float],
+        residual: ptr[Float],
+        key: idx_t
+    ): int;
+
+    @expname[faiss_Index_compute_residual_n]
+    func faiss_Index_compute_residual_n(
+        index: ptr[Index],
+        n: idx_t,
+        x: ptr[Float],
+        residuals: ptr[Float],
+        keys: ptr[idx_t]
+    ): int;
+
+    @expname[faiss_Index_sa_code_size]
+    func faiss_Index_sa_code_size(
+        index: ptr[Index],
+        size: ptr[ArchWord]
+    ): int;
+
+    @expname[faiss_Index_sa_encode]
+    func faiss_Index_sa_encode(
+        index: ptr[Index],
+        n: idx_t,
+        x: ptr[Float],
+        bytes: ptr[Word[8]]
+    ): int;
+
+    @expname[faiss_Index_sa_decode]
+    func faiss_Index_sa_decode(
+        index: ptr[Index],
+        n: idx_t,
+        bytes: ptr[Word[8]],
+        x: ptr[Float]
+    ): int;
+}
+

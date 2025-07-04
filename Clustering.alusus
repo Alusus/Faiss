@@ -1,0 +1,161 @@
+@merge module faiss {
+    class FaissClusteringParameters {
+    }
+
+    class FaissClustering {
+    }
+
+    class FaissClusteringIterationStats {
+    }
+
+    class FaissIndex {
+    }
+
+    @expname[faiss_ClusteringParameters_init]
+    func clusteringParametersInit(
+        params: ref[ptr[FaissClusteringParameters]]
+    );
+
+    @expname[faiss_Clustering_niter]
+    func clusteringNiter(
+        clustering: ptr[FaissClustering]
+    ): int;
+
+    @expname[faiss_Clustering_nredo]
+    func clusteringNredo(
+        clustering: ptr[FaissClustering]
+    ): int;
+
+    @expname[faiss_Clustering_verbose]
+    func clusteringVerbose(
+        clustering: ptr[FaissClustering]
+    ): int;
+
+    @expname[faiss_Clustering_spherical]
+    func clusteringSpherical(
+        clustering: ptr[FaissClustering]
+    ): int;
+
+    @expname[faiss_Clustering_int_centroids]
+    func clusteringIntCentroids(
+        clustering: ptr[FaissClustering]
+    ): int;
+
+    @expname[faiss_Clustering_update_index]
+    func clusteringUpdateIndex(
+        clustering: ptr[FaissClustering]
+    ): int;
+
+    @expname[faiss_Clustering_frozen_centroids]
+    func clusteringFrozenCentroids(
+        clustering: ptr[FaissClustering]
+    ): int;
+
+    @expname[faiss_Clustering_min_points_per_centroid]
+    func clusteringMinPointsPerCentroid(
+        clustering: ptr[FaissClustering]
+    ): int;
+
+    @expname[faiss_Clustering_max_points_per_centroid]
+    func clusteringMaxPointsPerCentroid(
+        clustering: ptr[FaissClustering]
+    ): int;
+
+    @expname[faiss_Clustering_seed]
+    func clusteringSeed(
+        clustering: ptr[FaissClustering]
+    ): int;
+
+    @expname[faiss_Clustering_decode_block_size]
+    func clusteringDecodeBlockSize(
+        clustering: ptr[FaissClustering]
+    ): Word[64];
+
+    @expname[faiss_Clustering_d]
+    func clusteringD(
+        clustering: ptr[FaissClustering]
+    ): Word[64];
+
+    @expname[faiss_Clustering_k]
+    func clusteringK(
+        clustering: ptr[FaissClustering]
+    ): Word[64];
+
+    @expname[faiss_ClusteringIterationStats_obj]
+    func clusteringIterationStatsObj(
+        stats: ptr[FaissClusteringIterationStats]
+    ): Float;
+
+    @expname[faiss_ClusteringIterationStats_time]
+    func clusteringIterationStatsTime(
+        stats: ptr[FaissClusteringIterationStats]
+    ): Double;
+
+    @expname[faiss_ClusteringIterationStats_time_search]
+    func clusteringIterationStatsTimeSearch(
+        stats: ptr[FaissClusteringIterationStats]
+    ): Double;
+
+    @expname[faiss_ClusteringIterationStats_imbalance_factor]
+    func clusteringIterationStatsImbalanceFactor(
+        stats: ptr[FaissClusteringIterationStats]
+    ): Double;
+
+    @expname[faiss_ClusteringIterationStats_nsplit]
+    func clusteringIterationStatsNsplit(
+        stats: ptr[FaissClusteringIterationStats]
+    ): int;
+
+    @expname[faiss_Clustering_centroids]
+    func clusteringCentroids(
+        clustering: ptr[FaissClustering],
+        centroids: ref[ptr[Float]],
+        size: ref[Word[64]]
+    );
+
+    @expname[faiss_Clustering_iteration_stats]
+    func clusteringIterationStats(
+        clustering: ptr[FaissClustering],
+        stats_out: ref[ptr[FaissClusteringIterationStats]],
+        size: ref[Word[64]]
+    );
+
+    @expname[faiss_Clustering_new]
+    func clusteringNew(
+        out: ref[ptr[FaissClustering]],
+        d: Int,
+        k: Int
+    ): Int;
+
+    @expname[faiss_Clustering_new_with_params]
+    func clusteringNewWithParams(
+        out: ref[ptr[FaissClustering]],
+        d: Int,
+        k: Int,
+        params: ptr[FaissClusteringParameters]
+    ): int;
+
+    @expname[faiss_Clustering_train]
+    func clusteringTrain(
+        clustering: ptr[FaissClustering],
+        n: Word[64],
+        x: ptr[Float],
+        index: ptr[FaissIndex]
+    ): Int;
+
+    @expname[faiss_Clustering_free]
+    func clusteringFree(
+        clustering: ptr[FaissClustering]
+    );
+
+    @expname[faiss_kmeans_clustering]
+    func kmeans_clustering(
+        d: Word[64],
+        n: Word[64],
+        k: Word[64],
+        x: ptr[Float],
+        centroids: ptr[Float],
+        q_error: ptr[Float]
+    ) int;
+}
+

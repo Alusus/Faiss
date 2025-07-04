@@ -1,0 +1,14 @@
+@merge module faiss {
+    @expname[faiss_clone_index]
+    func faissCloneIndex(
+        src: ptr[Index],
+        out: ptr[ptr[Index]]
+    ): int[32];
+
+    @expname[faiss_clone_index_binary]
+    func faissCloneIndexBinary(
+        src: ptr[IndexBinary],
+        out: ptr[ptr[IndexBinary]]
+    ): int[32];
+}
+

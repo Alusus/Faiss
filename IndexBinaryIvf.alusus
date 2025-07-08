@@ -1,0 +1,124 @@
+@merge module faiss {
+    class IndexBinaryIVF extends IndexBinary {}
+
+    @expname[faiss_IndexBinaryIVF_free]
+    func faissIndexBinaryIVFFree(
+        idx: ptr[IndexBinaryIVF]
+    );
+
+    @expname[faiss_IndexBinaryIVF_cast]
+    func faissIndexBinaryIVFCast(
+        base: ptr[IndexBinary]
+    ): ptr[IndexBinaryIVF];
+
+    @expname[faiss_IndexBinaryIVF_nlist]
+    func faissIndexBinaryIVFGetNlist(
+        idx: ptr[IndexBinaryIVF]
+    ): ArchWord;
+
+
+    @expname[faiss_IndexBinaryIVF_nprobe]
+    func faissIndexBinaryIVFGetNprobe(
+        idx: ptr[IndexBinaryIVF]
+    ): ArchWord;
+
+    @expname[faiss_IndexBinaryIVF_set_nprobe]
+    func faissIndexBinaryIVFSetNprobe(
+        idx: ptr[IndexBinaryIVF],
+        value: ArchWord
+    );
+
+    @expname[faiss_IndexBinaryIVF_quantizer]
+    func faissIndexBinaryIVFGetQuantizer(
+        idx: ptr[IndexBinaryIVF]
+    ): ptr[IndexBinary];
+
+    @expname[faiss_IndexBinaryIVF_own_fields]
+    func faissIndexBinaryIVFGetOwnFields(
+        idx: ptr[IndexBinaryIVF]
+    ): int;
+
+    @expname[faiss_IndexBinaryIVF_set_own_fields]
+    func faissIndexBinaryIVFSetOwnFields(
+        idx: ptr[IndexBinaryIVF],
+        value: int
+    );
+
+    @expname[faiss_IndexBinaryIVF_max_codes]
+    func faissIndexBinaryIVFGetMaxCodes(
+        idx: ptr[IndexBinaryIVF]
+    ): ArchWord;
+
+    @expname[faiss_IndexBinaryIVF_set_max_codes]
+    func faissIndexBinaryIVFSetMaxCodes(
+        idx: ptr[IndexBinaryIVF],
+        value: ArchWord
+    );
+
+    @expname[faiss_IndexBinaryIVF_use_heap]
+    func faissIndexBinaryIVFGetUseHeap(
+        idx: ptr[IndexBinaryIVF]
+    ): int;
+
+    @expname[faiss_IndexBinaryIVF_set_use_heap]
+    func faissIndexBinaryIVFSetUseHeap(
+        idx: ptr[IndexBinaryIVF],
+        value: int
+    );
+
+    @expname[faiss_IndexBinaryIVF_per_invlist_search]
+    func faissIndexBinaryIVFGetPerInvlistSearch(
+        idx: ptr[IndexBinaryIVF]
+    ): int;
+
+    @expname[faiss_IndexBinaryIVF_set_per_invlist_search]
+    func faissIndexBinaryIVFSetPerInvlistSearch(
+        idx: ptr[IndexBinaryIVF],
+        value: int
+    );
+
+    @expname[faiss_IndexBinaryIVF_merge_from]
+    func faissIndexBinaryIVFMergeFrom(
+        idx: ptr[IndexBinaryIVF],
+        other: ptr[IndexBinaryIVF],
+        add_id: idx_t
+    ): int;
+
+    @expname[faiss_IndexBinaryIVF_search_preassigned]
+    func faissIndexBinaryIVFSearchPreassigned(
+        idx: ptr[IndexBinaryIVF],
+        n: idx_t,
+        x: ptr[Word[8]],
+        k: idx_t,
+        cidx: ptr[idx_t],
+        cdis: ptr[Int32],
+        dis: ptr[Int32],
+        labels: ptr[idx_t],
+        store_pairs: int,
+        params: ptr[SearchParametersIVF]
+    ): int;
+
+    @expname[faiss_IndexBinaryIVF_get_list_size]
+    func faissIndexBinaryIVFGetListSize(
+        idx: ptr[IndexBinaryIVF],
+        list_no: ArchWord
+    ): ArchWord;
+
+
+    @expname[faiss_IndexBinaryIVF_make_direct_map]
+    func faissIndexBinaryIVFMakeDirectMap(
+        idx: ptr[IndexBinaryIVF],
+        new_maintain_direct_map: int
+    ): int;
+
+    @expname[faiss_IndexBinaryIVF_imbalance_factor]
+    func faissIndexBinaryIVFImbalanceFactor(
+        idx: ptr[IndexBinaryIVF]
+    ): Double;
+
+
+    @expname[faiss_IndexBinaryIVF_print_stats]
+    func faissIndexBinaryIVFPrintStats(
+        idx: ptr[IndexBinaryIVF]
+    );
+}

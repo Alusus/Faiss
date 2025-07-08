@@ -1,0 +1,302 @@
+@merge module faiss {
+    @expname[faiss_index_factory]
+    func faissIndexFactory(
+        p_index: ptr[ptr[Index]],
+        d: int,
+        description: CharsPtr,
+        metric: FaissMetricType
+    ): int;
+
+    @expname[faiss_index_binary_factory]
+    func faissIndexBinaryFactory(
+        p_index: ptr[ptr[IndexBinary]],
+        d: int,
+        description: CharsPtr
+    ): int;
+
+    class RangeSearchResult {}
+
+    @expname[faiss_RangeSearchResult_new]
+    func faissRangeSearchResultNew(
+        p_rsr: ptr[ptr[RangeSearchResult]],
+        nq: idx_t
+    ): int;
+
+    @expname[faiss_RangeSearchResult_new_with]
+    func faissRangeSearchResultNewWith(
+        p_rsr: ptr[ptr[RangeSearchResult]],
+        nq: idx_t,
+        alloc_lims: int
+    ): int;
+
+    @expname[faiss_RangeSearchResult_do_allocation]
+    func faissRangeSearchResultDoAllocation(
+        rsr: ptr[RangeSearchResult]
+    ): int;
+
+    @expname[faiss_RangeSearchResult_free]
+    func faissRangeSearchResultFree(
+        rsr: ptr[RangeSearchResult]
+    );
+
+    @expname[faiss_RangeSearchResult_nq]
+    func faissRangeSearchResultGetNq(
+        rsr: ptr[RangeSearchResult]
+    ): idx_t;
+
+    @expname[faiss_RangeSearchResult_buffer_size]
+    func faissRangeSearchResultGetBufferSize(
+        rsr: ptr[RangeSearchResult]
+    ): ArchWord;
+
+    @expname[faiss_RangeSearchResult_lims]
+    func faissRangeSearchResultLims(
+        rsr: ptr[RangeSearchResult],
+        outLims: ptr[ptr[ArchWord]]
+    );
+
+    @expname[faiss_RangeSearchResult_labels]
+    func faissRangeSearchResultLabels(
+        rsr: ptr[RangeSearchResult],
+        outLabels: ptr[ptr[idx_t]],
+        outDistances: ptr[ptr[Float]]
+    );
+
+    class IDSelector {}
+    @expname[faiss_IDSelector_free]
+    func faissIDSelectorFree(
+        sel: ptr[IDSelector]
+    );
+
+    @expname[faiss_IDSelector_is_member]
+    func faissIDSelectorIsMember(
+        sel: ptr[IDSelector],
+        id: idx_t
+    ): int;
+
+    class IDSelectorRange {}
+    @expname[faiss_IDSelectorRange_free]
+    func faissIDSelectorRangeFree(
+        sel: ptr[IDSelectorRange]
+    );
+
+    @expname[faiss_IDSelectorRange_new]
+    func faissIDSelectorRangeNew(
+        p_sel: ptr[ptr[IDSelectorRange]],
+        imin: idx_t,
+        imax: idx_t
+    ): int;
+
+    @expname[faiss_IDSelectorRange_imin]
+    func faissIDSelectorRangeGetImin(
+        sel: ptr[IDSelectorRange]
+    ): idx_t;
+
+    @expname[faiss_IDSelectorRange_imax]
+    func faissIDSelectorRangeGetImax(
+        sel: ptr[IDSelectorRange]
+    ): idx_t;
+
+    class IDSelectorBatch {}
+    @expname[faiss_IDSelectorBatch_free]
+    func faissIDSelectorBatchFree(
+        sel: ptr[IDSelectorBatch]
+    );
+
+    @expname[faiss_IDSelectorBatch_new]
+    func faissIDSelectorBatchNew(
+        p_sel: ptr[ptr[IDSelectorBatch]],
+        n: ArchWord,
+        indices: ptr[idx_t]
+    ): int;
+
+    @expname[faiss_IDSelectorBatch_nbits]
+    func faissIDSelectorBatchGetNbits(
+        sel: ptr[IDSelectorBatch]
+    ): int;
+
+    @expname[faiss_IDSelectorBatch_mask]
+    func faissIDSelectorBatchGetMask(
+        sel: ptr[IDSelectorBatch]
+    ): idx_t;
+
+    class IDSelectorBitmap {}
+    @expname[faiss_IDSelectorBitmap_free]
+    func faissIDSelectorBitmapFree(
+        sel: ptr[IDSelectorBitmap]
+    );
+
+    @expname[faiss_IDSelectorBitmap_new]
+    func faissIDSelectorBitmapNew(
+        p_sel: ptr[ptr[IDSelectorBitmap]],
+        n: ArchWord,
+        bitmap: ptr[Word[8]]
+    ): int;
+
+    @expname[faiss_IDSelectorBitmap_n]
+    func faissIDSelectorBitmapGetN(
+        sel: ptr[IDSelectorBitmap]
+    ): ArchWord;
+
+    @expname[faiss_IDSelectorBitmap_bitmap]
+    func faissIDSelectorBitmapGetBitmap(
+        sel: ptr[IDSelectorBitmap]
+    ): ptr[Word[8]];
+
+    class IDSelectorNot {}
+    @expname[faiss_IDSelectorNot_new]
+    func faissIDSelectorNotNew(
+        p_sel: ptr[ptr[IDSelectorNot]],
+        sel: ptr[IDSelector]
+    ): int;
+
+    class IDSelectorAnd {}
+    @expname[faiss_IDSelectorAnd_new]
+    func faissIDSelectorAndNew(
+        p_sel: ptr[ptr[IDSelectorAnd]],
+        lhs: ptr[IDSelector],
+        rhs: ptr[IDSelector]
+    ): int;
+
+    class IDSelectorOr {}
+    @expname[faiss_IDSelectorOr_new]
+    func faissIDSelectorOrNew(
+        p_sel: ptr[ptr[IDSelectorOr]],
+        lhs: ptr[IDSelector],
+        rhs: ptr[IDSelector]
+    ): int;
+
+    class IDSelectorXOr {}
+    @expname[faiss_IDSelectorXOr_new]
+    func faissIDSelectorXOrNew(
+        p_sel: ptr[ptr[IDSelectorXOr]],
+        lhs: ptr[IDSelector],
+        rhs: ptr[IDSelector]
+    ): int;
+
+    class BufferList {}
+
+    @expname[faiss_BufferList_free]
+    func faissBufferListFree(
+        bl: ptr[BufferList]
+    );
+
+    @expname[faiss_BufferList_new]
+    func faissBufferListNew(
+        p_bl: ptr[ptr[BufferList]],
+        buffer_size: ArchWord
+    ): int;
+
+    @expname[faiss_BufferList_append_buffer]
+    func faissBufferListAppendBuffer(
+        bl: ptr[BufferList]
+    ): int;
+
+    @expname[faiss_BufferList_add]
+    func faissBufferListAdd(
+        bl: ptr[BufferList],
+        id: idx_t,
+        dis: Float
+    ): int;
+
+    @expname[faiss_BufferList_copy_range]
+    func faissBufferListCopyRange(
+        bl: ptr[BufferList],
+        ofs: ArchWord,
+        n: ArchWord,
+        dest_ids: ptr[idx_t],
+        dest_dis: ptr[Float]
+    ): int;
+
+    @expname[faiss_BufferList_buffer_size]
+    func faissBufferListGetBufferSize(
+        bl: ptr[BufferList]
+    ): ArchWord;
+
+    @expname[faiss_BufferList_wp]
+    func faissBufferListGetWp(
+        bl: ptr[BufferList]
+    ): ArchWord;
+
+    class RangeSearchPartialResult {}
+
+    @expname[faiss_RangeSearchPartialResult_new]
+    func faissRangeSearchPartialResultNew(
+        p_res: ptr[ptr[RangeSearchPartialResult]],
+        res_in: ptr[RangeSearchResult]
+    ): int;
+
+    @expname[faiss_RangeSearchPartialResult_set_lims]
+    func faissRangeSearchPartialResultSetLims(
+        res: ptr[RangeSearchPartialResult]
+    ): int;
+
+    @expname[faiss_RangeSearchPartialResult_finalize]
+    func faissRangeSearchPartialResultFinalize(
+        res: ptr[RangeSearchPartialResult]
+    ): int;
+
+    @expname[faiss_RangeSearchPartialResult_new_result]
+    func faissRangeSearchPartialResultNewResult(
+        res: ptr[RangeSearchPartialResult],
+        qno: idx_t,
+        p_qr: ptr[ptr[RangeQueryResult]]
+    ): int;
+
+    @expname[faiss_RangeSearchPartialResult_res]
+    func faissRangeSearchPartialResultGetRes(
+        res: ptr[RangeSearchPartialResult]
+    ): ptr[RangeSearchResult];
+
+    class RangeQueryResult {}
+
+    @expname[faiss_RangeQueryResult_add]
+    func faissRangeQueryResultAdd(
+        qr: ptr[RangeQueryResult],
+        dis: Float,
+        id: idx_t
+    ): int;
+
+    @expname[faiss_RangeQueryResult_qno]
+    func faissRangeQueryResultGetQno(
+        qr: ptr[RangeQueryResult]
+    ): idx_t;
+
+    @expname[faiss_RangeQueryResult_nres]
+    func faissRangeQueryResultGetNres(
+        qr: ptr[RangeQueryResult]
+    ): ArchWord;
+
+    @expname[faiss_RangeQueryResult_pres]
+    func faissRangeQueryResultGetPres(
+        qr: ptr[RangeQueryResult]
+    ): ptr[RangeSearchPartialResult];
+
+    class DistanceComputer {}
+
+    @expname[faiss_DistanceComputer_set_query]
+    func faissDistanceComputerSetQuery(
+        dc: ptr[DistanceComputer],
+        x: ptr[Float]
+    ): int;
+
+    @expname[faiss_DistanceComputer_vector_to_query_dis]
+    func faissDistanceComputerVectorToQueryDis(
+        dc: ptr[DistanceComputer],
+        i: idx_t,
+        qd: ptr[Float]
+    ): int;
+
+    @expname[faiss_DistanceComputer_symmetric_dis]
+    func faissDistanceComputerSymmetricDis(
+        dc: ptr[DistanceComputer],
+        i: idx_t,
+        j: idx_t,
+        vd: ptr[Float]
+    ): int;
+
+    @expname[faiss_DistanceComputer_free]
+    func faissDistanceComputerFree(
+        dc: ptr[DistanceComputer]
+    );
+}

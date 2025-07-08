@@ -1,0 +1,19 @@
+import "libfaiss_c.so";
+/*
+    Linux .so | .so.0
+    Mac OS .dylib
+    Windows .lib
+*/
+
+@merge module faiss {
+
+def FaissMetricType {
+        OK = 0,
+        UNKNOWN_EXCEPT = -1,
+        FAISS_EXCEPT = -2,
+        STD_EXCEPT = -4,
+    }
+@expname[faiss_get_last_error]
+func getLastError(): CharsPtr;
+}
+

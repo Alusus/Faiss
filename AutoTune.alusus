@@ -1,34 +1,34 @@
 
-@merge module faiss {
+    @merge module faiss {
     class ParameterRange {
     }
 
     class ParameterSpace {
     }
 
-    @expname[faiss_ParameterRange_name];
+    @expname[faiss_ParameterRange_name]
     func faissParameterRangeName(
         parameterRange: ptr[ParameterRange]
     ): CharsPtr
 
-    @expname[faiss_ParameterRange_values];
+    @expname[faiss_ParameterRange_values]
     func faissParameterRangeValues(
         parameterRange: ptr[ParameterRange],
         outValues: ptr[ptr[Double]],
         outSize: ptr[ArchWord]
     )
 
-    @expname[faiss_ParameterSpace_new];
+    @expname[faiss_ParameterSpace_new]
     func faissParameterSpacenew(
         parameterSpace: ptr[ptr[ParameterSpace]]
     ): int[32]
 
-    @expname[faiss_ParameterSpace_n_combinations];
+    @expname[faiss_ParameterSpace_n_combinations]
     func faissParameterSpaceNCombinations(
         parameterSpace: ptr[ParameterSpace]
     ): ArchWord
 
-    @expname[faiss_ParameterSpace_combination_name];
+    @expname[faiss_ParameterSpace_combination_name]
     func faissParameterSpaceCombinationName(
         parameterSpace: ptr[ParameterSpace],
         combIndex: ArchWord,
@@ -36,21 +36,21 @@
         bufSize: ArchWord
     ): int[32]
 
-    @expname[faiss_ParameterSpace_set_index_parameters];
+    @expname[faiss_ParameterSpace_set_index_parameters]
     func faissParameterSpaceSetIndexParameters(
         parameterSpace: ptr[ParameterSpace],
         index: ptr[Index],
         params: CharsPtr
     ): int[32]
 
-    @expname[faiss_ParameterSpace_set_index_parameters_cno];
+    @expname[faiss_ParameterSpace_set_index_parameters_cno]
     func faissParameterSpaceSeIndexParametersCno(
         parameterSpace: ptr[ParameterSpace],
         index: ptr[Index],
         combIndex: ArchWord
     ): int[32]
 
-    @expname[faiss_ParameterSpace_set_index_parameter];
+    @expname[faiss_ParameterSpace_set_index_parameter]
     func faissParameterSpaceSetIndexParameter(
         parameterSpace: ptr[ParameterSpace],
         index: ptr[Index],
@@ -58,12 +58,12 @@
         value: Double
     ): int[32]
 
-    @expname[faiss_ParameterSpace_display];
+    @expname[faiss_ParameterSpace_display]
     func faissParameterSpaceDisplay(
         parameterSpace: ptr[ParameterSpace]
     )
 
-    @expname[faiss_ParameterSpace_display];
+    @expname[faiss_ParameterSpace_display]
     func faissParameterSpaceAdRange(
         this: ptr[ParameterSpace],
         name: CharsPtr,

@@ -1,0 +1,16 @@
+@merge module faiss {
+    @expname[faiss_index_factory]
+    func faissIndexFactory(
+        p_index: ptr[ptr[Index]],
+        d: int,
+        description: CharsPtr,
+        metric: FaissMetricType
+    ): int;
+    @expname[faiss_index_binary_factory]
+    func faissIndexBinaryFactory(
+        p_index: ptr[ptr[IndexBinary]],
+        d: int,
+        description: CharsPtr
+    ): int;
+}
+

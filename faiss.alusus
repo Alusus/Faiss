@@ -1,0 +1,67 @@
+import "libfaiss_c.so";
+@merge module faiss {
+    alias idx_t = Int[64];
+    alias faiss_idx_t = Int[64];
+    alias faiss_component_t = Float;
+    alias faiss_distance_t = Float;
+
+    class Index {
+    }
+
+    class IndexBinary {
+    }
+
+    class SearchParameters {
+    }
+
+    class IndexFlat {
+        @injection def basicWidget: Index;
+    }
+
+    class IndexBinaryFlat {
+        @injection def basicWidget: IndexBinary;
+    }
+
+    class SearchParametersIVF {
+        @injection def basicWidget: SearchParameters;
+    }
+    @expname[faiss_IndexFlat_cast]
+    func faissIndexFlatCast(base: ptr[Index]): ptr[IndexFlat];
+
+    @expname[faiss_IndexIVFFlat_cast]
+    func faissIndexIVFFlatCast(base: ptr[Index]): ptr[IndexIVFFlat];
+
+    @expname[faiss_IndexBinaryFlat_cast]
+    func faissIndexBinaryFlatCast(base: ptr[IndexBinary]): ptr[IndexBinaryFlat];
+
+    @expname[faiss_SearchParametersIVF_cast]
+    func faiss_SearchParametersIVF_cast(base: ptr[SearchParameters]): ptr[SearchParametersIVF];
+
+    @expname[faiss_Index_d]
+    func faiss_Index_d(this: ptr[Index]): idx_t;
+
+    @expname[faiss_Index_set_d]
+    func faiss_Index_set_d(this: ptr[Index], value: idx_t);
+
+    @expname[faiss_Index_ntotal]
+    func faiss_Index_ntotal(this: ptr[Index]): faiss_idx_t;
+
+    @expname[faiss_Index_set_ntotal]
+    func faiss_Index_set_ntotal(this: ptr[Index], n: faiss_idx_t);
+
+    @expname[faiss_SearchParameters_nprobe]
+    func faiss_SearchParameters_nprobe(this: ptr[SearchParametersIVF]): int;
+
+    @expname[faiss_SearchParameters_set_nprobe]
+    func faiss_SearchParameters_set_nprobe(this: ptr[SearchParametersIVF], value: int);
+
+    @expname[faiss_Index_free]
+    func faiss_Index_free(this: ptr[Index]);
+
+    @expname[faiss_IndexBinary_free]
+    func faiss_IndexBinary_free(this: ptr[IndexBinary]);
+
+    @expname[faiss_SearchParameters_free]
+    func faiss_SearchParameters_free(this: ptr[SearchParameters]);
+}
+

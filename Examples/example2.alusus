@@ -1,0 +1,61 @@
+Apm.importFile("Alusus/Faiss");
+import "../Faiss.alusus";
+use Faiss;
+import "Srl/Console";
+use Srl;
+
+Console.print("\nexample2_static\n");
+
+def D: int = 8;
+def NB: idx_t = 80;
+def NQ: idx_t = 2;
+def K: idx_t = 3;
+
+
+def xb: array[float, 640];
+// NB * D
+def i: idx_t = 0
+    for i = 0, i < 640, i++ {
+    xb(i) = (float)((i%D) + 1);
+}
+def xq: array[float, 16];
+for i = 0, i < 16, i++ {
+    xq(i) = (float)((i%D) + 1) + 0.5;
+}
+def index: ptr[Index];
+if faissIndexFactory(index~ptr, D, "Flat", FaissMetricType.METRIC_INNER_PRODUCT) == 0 {
+    Console.print("\nfaiss_index_factory: OK \n");
+} else {
+    Console.print("\n faiss_index_factory: ERROR \n");
+}
+
+
+faissIndexTrain(index, NB, xb~ptr);
+
+faissIndexAdd(index, NB, xb~ptr);
+
+def ps: ptr[ParameterSpace];
+faissParameterSpaceNew(ps~ptr);
+faissParameterSpaceSetIndexParameter(ps, index, "nprobe", 2.0);
+faissParameterSpaceFree(ps);
+
+
+def I: array[idx_t, 6];
+def Di: array[float, 6];
+
+faissIndexSearch(index, NQ, xq~ptr, 3, Di~ptr, I~ptr);
+def j: int = 0;
+for i = 0, i < NQ, i++ {
+    Console.print("Query %i:\n", i);
+    for j = 0, j < 3, j++ {
+        Console.print("  Neighbor");
+        Console.print(j);
+        Console.print("idx= ");
+        Console.print(I(i * 3 + j));
+        Console.print("dist= ");
+        Console.print(Di(i * 3 + j));
+        Console.print("\n");
+    }
+}
+
+faissIndexFree(index);

@@ -1,74 +1,74 @@
-@merge module faiss {
+@merge module Faiss {
     class RangeSearchResult {
     }
 
     class IDSelector {
     }
 
-    def FaissMetricType {
-        METRIC_INNER_PRODUCT = 0,
-        METRIC_L2 = 1,
-        METRIC_L1 = 2,
-        METRIC_Linf = 3,
-        METRIC_Lp = 4,
-        METRIC_Canberra = 20,
-        METRIC_BrayCurtis = 21,
-        METRIC_JensenShannon = 22,
+    def FaissMetricType : {
+        def METRIC_INNER_PRODUCT : 0;
+        def METRIC_L2 : 1;
+        def METRIC_L1 : 2;
+        def METRIC_Linf : 3;
+        def METRIC_Lp : 4;
+        def METRIC_Canberra : 20;
+        def METRIC_BrayCurtis : 21;
+        def METRIC_JensenShannon : 22;
     }
 
     @expname[faiss_SearchParameters_new]
-    func faiss_SearchParameters_new(
+    func faissSearchParametersNew(
         p_sp: ptr[ptr[SearchParameters]],
         sel: ptr[IDSelector]
     ): int;
 
     @expname[faiss_SearchParameters_free]
-    func faiss_SearchParameters_free(
+    func faissSearchParametersFree(
         this: ptr[SearchParameters]
     );
 
     @expname[faiss_Index_free]
-    func faiss_Index_free(
+    func faissIndexFree(
         this: ptr[Index]
     );
 
     @expname[faiss_Index_is_trained]
-    func faiss_Index_is_trained(
+    func faissIndexIsTrained(
         this: ptr[Index]
     ): Int;
 
     @expname[faiss_Index_metric_type]
-    func faiss_Index_metric_type(
+    func faissIndexMetricType(
         this: ptr[Index]
     ): FaissMetricType;
 
     @expname[faiss_Index_verbose]
-    func faiss_Index_verbose(
+    func faissIndexVerbose(
         this: ptr[Index]
     ): int;
 
     @expname[faiss_Index_set_verbose]
-    func faiss_Index_set_verbose(
+    func faissIndexSetVerbose(
         this: ptr[Index],
         v: int
     );
 
    @expname[faiss_Index_train]
-    func faiss_Index_train(
+    func faissIndexTrain(
         index: ptr[Index],
         n: idx_t,
         x: ptr[Float]
     ): int;
 
     @expname[faiss_Index_add]
-    func faiss_Index_add(
+    func faissIndexAdd(
         index: ptr[Index],
         n: idx_t,
         x: ptr[Float]
     ): int;
 
     @expname[faiss_Index_add_with_ids]
-    func faiss_Index_add_with_ids(
+    func faissIndexAddWithIds(
         index: ptr[Index],
         n: idx_t,
         x: ptr[Float],
@@ -76,7 +76,7 @@
     ): int;
 
     @expname[faiss_Index_search]
-    func faiss_Index_search(
+    func faissIndexSearch(
         index: ptr[Index],
         n: idx_t,
         x: ptr[Float],
@@ -86,7 +86,7 @@
     ): int;
 
     @expname[faiss_Index_search_with_params]
-    func faiss_Index_search_with_params(
+    func faissIndexSearchWithParams(
         index: ptr[Index],
         n: idx_t,
         x: ptr[Float],
@@ -97,7 +97,7 @@
     ): int;
 
     @expname[faiss_Index_range_search]
-    func faiss_Index_range_search(
+    func faissIndexRangeSearch(
         index: ptr[Index],
         n: idx_t,
         x: ptr[Float],
@@ -106,7 +106,7 @@
     ): int;
 
     @expname[faiss_Index_assign]
-    func faiss_Index_assign(
+    func faissIndexAssign(
         index: ptr[Index],
         n: idx_t,
         x: ptr[Float],
@@ -115,26 +115,26 @@
     ): int;
 
     @expname[faiss_Index_reset]
-    func faiss_Index_reset(
+    func faissIndexReset(
         index: ptr[Index]
     ): int;
 
     @expname[faiss_Index_remove_ids]
-    func faiss_Index_remove_ids(
+    func faissIndexRemoveIds(
         index: ptr[Index],
         sel: ptr[IDSelector],
         n_removed: ptr[ArchWord]
     ): int;
 
     @expname[faiss_Index_reconstruct]
-    func faiss_Index_reconstruct(
+    func faissIndexReconstruct(
         index: ptr[Index],
         key: idx_t,
         recons: ptr[Float]
     ): int;
 
     @expname[faiss_Index_reconstruct_n]
-    func faiss_Index_reconstruct_n(
+    func faissIndexReconstructN(
         index: ptr[Index],
         i0: idx_t,
         ni: idx_t,
@@ -142,7 +142,7 @@
     ): int;
 
     @expname[faiss_Index_compute_residual]
-    func faiss_Index_compute_residual(
+    func faissIndexComputeResidual(
         index: ptr[Index],
         x: ptr[Float],
         residual: ptr[Float],
@@ -150,7 +150,7 @@
     ): int;
 
     @expname[faiss_Index_compute_residual_n]
-    func faiss_Index_compute_residual_n(
+    func faissIndexComputeResidualN(
         index: ptr[Index],
         n: idx_t,
         x: ptr[Float],
@@ -159,13 +159,13 @@
     ): int;
 
     @expname[faiss_Index_sa_code_size]
-    func faiss_Index_sa_code_size(
+    func faissIndexSaCodeSize(
         index: ptr[Index],
         size: ptr[ArchWord]
     ): int;
 
     @expname[faiss_Index_sa_encode]
-    func faiss_Index_sa_encode(
+    func faissIndexSaEncode(
         index: ptr[Index],
         n: idx_t,
         x: ptr[Float],
@@ -173,7 +173,7 @@
     ): int;
 
     @expname[faiss_Index_sa_decode]
-    func faiss_Index_sa_decode(
+    func faissIndexSaDecode(
         index: ptr[Index],
         n: idx_t,
         bytes: ptr[Word[8]],

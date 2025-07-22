@@ -1,4 +1,4 @@
-@merge module faiss {
+@merge module Faiss {
     class IndexBinary {
     }
 
@@ -107,8 +107,7 @@
         recons: ptr[Word[8]]
     ): int[32];
 
-    @expname[faiss_IndexBinary_reconstruct_n];
-
+    @expname[faiss_IndexBinary_reconstruct_n]
     func faiss_IndexBinary_reconstruct_n(
         index: ptr[IndexBinary],
         i0: idx_t,

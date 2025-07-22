@@ -1,4 +1,4 @@
-@merge module faiss {
+@merge module Faiss {
     @expname[faiss_clone_index]
     func faissCloneIndex(
         src: ptr[Index],

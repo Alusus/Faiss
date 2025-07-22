@@ -1,4 +1,4 @@
-@merge module faiss {
+@merge module Faiss {
 
     class IOReader {}
     class IOWriter {}

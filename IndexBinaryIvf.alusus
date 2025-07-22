@@ -1,5 +1,7 @@
-@merge module faiss {
-    class IndexBinaryIVF extends IndexBinary {}
+@merge module Faiss {
+    class IndexBinaryIVF {
+    @injection def indexBinary: IndexBinary;
+    }
 
     @expname[faiss_IndexBinaryIVF_free]
     func faissIndexBinaryIVFFree(

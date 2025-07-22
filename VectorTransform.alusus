@@ -1,21 +1,24 @@
-@merge module faiss {
-    // === IndexIDMap ===
-    class IndexIDMap extends Index {}
+@merge module Faiss {
+    class IndexIDMap {
+        @injection def index: Index;
+    }
 
-    /** Constructor */
+    class IndexIDMap2 {
+        @injection def index: Index;
+    }
+
     @expname[faiss_IndexIDMap_new]
     func faissIndexIDMapNew(
         p_index: ptr[ptr[IndexIDMap]],
         sub: ptr[Index]
     ): int;
 
-    /** Downcast from Index */
     @expname[faiss_IndexIDMap_cast]
     func faissIndexIDMapCast(
         base: ptr[Index]
     ): ptr[IndexIDMap];
 
-    /** Getter / Setter for own_fields */
+
     @expname[faiss_IndexIDMap_own_fields]
     func faissIndexIDMapGetOwnFields(
         idx: ptr[IndexIDMap]
@@ -27,7 +30,7 @@
         value: int
     ): Void;
 
-    /** Access the internal id_map buffer */
+
     @expname[faiss_IndexIDMap_id_map]
     func faissIndexIDMapGetMap(
         idx: ptr[IndexIDMap],
@@ -35,30 +38,22 @@
         outSize: ptr[ArchWord]
     ): Void;
 
-    /** Get the wrapped sub‑index */
     @expname[faiss_IndexIDMap_sub_index]
     func faissIndexIDMapGetSubIndex(
         idx: ptr[IndexIDMap]
-    ): ptr[Index>;
+    ): ptr[Index];
 
-
-    // === IndexIDMap2 ===
-    class IndexIDMap2 extends Index {}
-
-    /** Constructor */
     @expname[faiss_IndexIDMap2_new]
     func faissIndexIDMap2New(
         p_index: ptr[ptr[IndexIDMap2]],
         sub: ptr[Index]
     ): int;
 
-    /** Downcast from Index */
     @expname[faiss_IndexIDMap2_cast]
     func faissIndexIDMap2Cast(
         base: ptr[Index]
-    ): ptr[IndexIDMap2>;
+    ): ptr[IndexIDMap2];
 
-    /** Getter / Setter for own_fields */
     @expname[faiss_IndexIDMap2_own_fields]
     func faissIndexIDMap2GetOwnFields(
         idx: ptr[IndexIDMap2]
@@ -70,13 +65,11 @@
         value: int
     ): Void;
 
-    /** Construct reverse map from scratch */
     @expname[faiss_IndexIDMap2_construct_rev_map]
     func faissIndexIDMap2ConstructRevMap(
         idx: ptr[IndexIDMap2]
     ): int;
 
-    /** Access the internal id_map buffer */
     @expname[faiss_IndexIDMap2_id_map]
     func faissIndexIDMap2GetMap(
         idx: ptr[IndexIDMap2],
@@ -84,9 +77,8 @@
         outSize: ptr[ArchWord]
     ): Void;
 
-    /** Get the wrapped sub‑index */
     @expname[faiss_IndexIDMap2_sub_index]
     func faissIndexIDMap2GetSubIndex(
         idx: ptr[IndexIDMap2]
-    ): ptr[Index>;
+    ): ptr[Index];
 }

@@ -1,7 +1,11 @@
-@merge module faiss {
+@merge module Faiss {
+    class IndexIVF {
+        @injection def index: Index;
+    }
 
-    class SearchParametersIVF extends SearchParameters {}
-
+    class SearchParametersIVF {
+        @injection def searchParameters: SearchParameters;
+    }
 
     @expname[faiss_SearchParametersIVF_new]
     func faissSearchParametersIVFNew(
@@ -57,9 +61,6 @@
         value: ArchWord
     );
 
-
-    class IndexIVF extends Index {}
-
     @expname[faiss_IndexIVF_free]
     func faissIndexIVFFree(
         idx: ptr[IndexIVF]
@@ -68,7 +69,7 @@
     @expname[faiss_IndexIVF_cast]
     func faissIndexIVFCast(
         base: ptr[Index]
-    ): ptr[IndexIVF>;
+    ): ptr[IndexIVF];
 
     @expname[faiss_IndexIVF_nlist]
     func faissIndexIVFGetNlist(
@@ -195,8 +196,6 @@
         stats: ptr[IndexIVFStats]
     );
 
-
-
     @expname[faiss_get_indexIVF_stats]
-    func faissGetIndexIVFStats(): ptr[IndexIVFStats>;
+    func faissGetIndexIVFStats(): ptr[IndexIVFStats];
 }

@@ -1,10 +1,14 @@
-import "libfaiss_c.so";
-@merge module faiss {
-    alias idx_t = Int[64];
-    alias faiss_idx_t = Int[64];
-    alias faiss_component_t = Float;
-    alias faiss_distance_t = Float;
+import "/home/sleman/miniconda3/lib/libfaiss_c.so";
+import "Srl/Console";
+use Srl;
+Console.print("\n faiss \n");
+@merge module Faiss {
 
+    def idx_t : alias Int[64];
+    def faiss_idx_t : alias Int[64];
+    def faiss_component_t : alias Float;
+    def faiss_distance_t : alias Float;
+    Console.print("\n faiss \n");
     class Index {
     }
 
@@ -12,6 +16,12 @@ import "libfaiss_c.so";
     }
 
     class SearchParameters {
+    }
+
+    class ParameterRange {
+    }
+
+    class ParameterSpace {
     }
 
     class IndexFlat {
@@ -64,4 +74,16 @@ import "libfaiss_c.so";
     @expname[faiss_SearchParameters_free]
     func faiss_SearchParameters_free(this: ptr[SearchParameters]);
 }
-
+import "AutoTune.alusus";
+    import "AuxIndexStructures.alusus";
+    import "CloneIndex.alusus";
+    import "Clustering.alusus";
+    import "index.alusus";
+    import "IndexBinary.alusus";
+    import "IndexBinaryIvf.alusus";
+    import "IndexClone.alusus";
+    import "IndexFactory.alusus";
+    import "IndexFlat.alusus";
+    import "IndexIVF.alusus";
+    import "IoFaiss.alusus";
+    import "VectorTransform.alusus";

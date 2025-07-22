@@ -1,5 +1,23 @@
-@merge module faiss {
-    class IndexFlat extends Index {}
+@merge module Faiss {
+    class IndexFlat {
+        @injection def index: Index;
+    }
+
+    class IndexFlatIP {
+        @injection def index: Index;
+    }
+
+    class IndexFlatL2 {
+        @injection def index: Index;
+    }
+
+    class IndexRefineFlat {
+        @injection def index: Index;
+    }
+
+    class IndexFlat1D {
+        @injection def index: Index;
+    }
 
     @expname[faiss_IndexFlat_new]
     func faissIndexFlatNew(
@@ -40,10 +58,6 @@
         labels: ptr[idx_t]
     ): int;
 
-
-
-    class IndexFlatIP extends Index {}
-
     @expname[faiss_IndexFlatIP_new]
     func faissIndexFlatIPNew(
         p_index: ptr[ptr[IndexFlatIP]]
@@ -65,9 +79,6 @@
         idx: ptr[IndexFlatIP]
     );
 
-
-    class IndexFlatL2 extends Index {}
-
     @expname[faiss_IndexFlatL2_new]
     func faissIndexFlatL2New(
         p_index: ptr[ptr[IndexFlatL2]]
@@ -82,14 +93,12 @@
     @expname[faiss_IndexFlatL2_cast]
     func faissIndexFlatL2Cast(
         base: ptr[Index]
-    ): ptr[IndexFlatL2>;
+    ): ptr[IndexFlatL2];
 
     @expname[faiss_IndexFlatL2_free]
     func faissIndexFlatL2Free(
         idx: ptr[IndexFlatL2]
     );
-
-    class IndexRefineFlat extends Index {}
 
     @expname[faiss_IndexRefineFlat_new]
     func faissIndexRefineFlatNew(
@@ -100,7 +109,7 @@
     @expname[faiss_IndexRefineFlat_cast]
     func faissIndexRefineFlatCast(
         base: ptr[Index]
-    ): ptr[IndexRefineFlat>;
+    ): ptr[IndexRefineFlat];
 
     @expname[faiss_IndexRefineFlat_free]
     func faissIndexRefineFlatFree(
@@ -129,8 +138,6 @@
         value: Float
     );
 
-    class IndexFlat1D extends Index {}
-
     @expname[faiss_IndexFlat1D_new]
     func faissIndexFlat1DNew(
         p_index: ptr[ptr[IndexFlat1D]]
@@ -150,9 +157,10 @@
     @expname[faiss_IndexFlat1D_cast]
     func faissIndexFlat1DCast(
         base: ptr[Index]
-    ): ptr[IndexFlat1D>;
+    ): ptr[IndexFlat1D];
 
     @expname[faiss_IndexFlat1D_free]
     func faissIndexFlat1DFree(
         idx: ptr[IndexFlat1D]
     );
+}

@@ -5,8 +5,8 @@
 This document lists the most important Alusus‐level functions and their corresponding FAISS C API calls.
 
 | Alusus Function                                     | C API Function                                    |
-|------------------------------------------------------|---------------------------------------------------|
-| **Factory & Creation**                               |                                                   |
+|-----------------------------------------------------|---------------------------------------------------|
+| **Factory & Creation**                              |                                                   |
 | `faissIndexFactory`                                 | `faiss_index_factory`                             |
 | `faissIndexBinaryFactory`                           | `faiss_index_binary_factory`                      |
 | `faissIndexFlatNew`                                 | `faiss_IndexFlat_new`                             |
@@ -20,7 +20,7 @@ This document lists the most important Alusus‐level functions and their corres
 | `faissIndexIVFFlatNew`                              | `faiss_IndexIVF_new`                              |
 | `faissIndexBinaryIVFNew`                            | `faiss_IndexBinaryIVF_new`                        |
 
-| **Configuration & Training**                         |                                                   |
+| **Configuration & Training**                        |                                                   |
 | `faissSearchParametersIVFSetNprobe`                 | `faiss_SearchParameters_set_nprobe`               |
 | `faissSearchParametersIVFSetMaxCodes`               | `faiss_SearchParameters_set_max_codes`            |
 | `faissIndexRefineFlatSetOwnFields`                  | `faiss_IndexRefineFlat_set_own_fields`            |
@@ -29,7 +29,7 @@ This document lists the most important Alusus‐level functions and their corres
 | `faissIndexTrain`                                   | `faiss_Index_train`                               |
 | `faissIndexIVFTrainEncoder`                         | `faiss_IndexIVF_train_encoder`                    |
 
-| **Data Ingestion & Manipulation**                    |                                                   |
+| **Data Ingestion & Manipulation**                   |                                                   |
 | `faissIndexAdd`                                     | `faiss_Index_add`                                 |
 | `faissIndexAddWithIds`                              | `faiss_Index_add_with_ids`                        |
 | `faissIndexReset`                                   | `faiss_Index_reset`                               |
@@ -38,7 +38,7 @@ This document lists the most important Alusus‐level functions and their corres
 | `faissBufferListAdd`                                | `faiss_BufferList_add`                            |
 | `faissRangeSearchResultDoAllocation`                | `faiss_RangeSearchResult_do_allocation`           |
 
-| **Query & Search**                                   |                                                   |
+| **Query & Search**                                  |                                                   |
 | `faissIndexSearch`                                  | `faiss_Index_search`                              |
 | `faissIndexSearchWithParams`                        | `faiss_Index_search_with_params`                  |
 | `faissIndexRangeSearch`                             | `faiss_Index_range_search`                        |
@@ -48,7 +48,7 @@ This document lists the most important Alusus‐level functions and their corres
 | `faissDistanceComputerVectorToQueryDis`             | `faiss_DistanceComputer_vector_to_query_dis`      |
 | `faissDistanceComputerSymmetricDis`                 | `faiss_DistanceComputer_symmetric_dis`            |
 
-| **Inspection & Statistics**                          |                                                   |
+| **Inspection & Statistics**                         |                                                   |
 | `faissIndexFlatXb`                                  | `faiss_IndexFlat_xb`                              |
 | `faissIndexIVFGetListSize`                          | `faiss_IndexIVF_get_list_size`                    |
 | `faissIndexBinaryIVFGetListSize`                    | `faiss_IndexBinaryIVF_get_list_size`              |
@@ -60,7 +60,7 @@ This document lists the most important Alusus‐level functions and their corres
 | `faissIndexBinaryIVFPrintStats`                     | `faiss_IndexBinaryIVF_print_stats`                |
 | `faissGetIndexIVFStats`                             | `faiss_get_indexIVF_stats`                        |
 
-| **Destruction**                                      |                                                   |
+| **Destruction**                                     |                                                   |
 | `faissIndexFlatFree`                                | `faiss_IndexFlat_free`                            |
 | `faissIndexFlatIPFree`                              | `faiss_IndexFlatIP_free`                          |
 | `faissIndexFlatL2Free`                              | `faiss_IndexFlatL2_free`                          |

@@ -1,9 +1,5 @@
 import "libfaiss_c.so";
-/*
-    Linux .so | .so.0
-    Mac OS .dylib
-    Windows .lib
-*/
+
 
 @merge module faiss {
 

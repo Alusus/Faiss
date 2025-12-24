@@ -4,7 +4,6 @@ use Faiss;
 import "Srl/Console";
 use Srl;
 
-Console.print("\nexample2_static\n");
 
 def D: int = 8;
 def NB: idx_t = 80;

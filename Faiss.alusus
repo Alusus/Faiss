@@ -1,14 +1,12 @@
 import "/home/sleman/miniconda3/lib/libfaiss_c.so";
 import "Srl/Console";
 use Srl;
-Console.print("\n faiss \n");
 @merge module Faiss {
 
     def idx_t : alias Int[64];
     def faiss_idx_t : alias Int[64];
     def faiss_component_t : alias Float;
     def faiss_distance_t : alias Float;
-    Console.print("\n faiss \n");
     class Index {
     }
 

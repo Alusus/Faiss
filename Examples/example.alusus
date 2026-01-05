@@ -1,0 +1,52 @@
+import "Srl/Console";
+import "Srl/Array";
+import "Apm";
+Apm.importFile("Alusus/Faiss");
+use Srl;
+use Faiss;
+
+// Input data
+def D: Int = 4;
+def xb: Array[Float]({
+    1.0,  2.0,  3.0,  4.0,
+    2.0,  3.0,  4.0,  5.0,
+    10.0, 11.0, 12.0, 13.0,
+    11.0, 12.0, 13.0, 14.0,
+    5.0,  6.0,  7.0,  8.0
+});
+def xq: Array[Float]({
+    1.5,  2.5,  3.5,  4.5,
+    10.5, 11.5, 12.5, 13.5
+});
+
+// Prepare the index
+def index: ref[Index];
+if Index.new(index, D, "Flat", MetricType.INNER_PRODUCT) == 0 {
+    Console.print("Index.new: OK \n");
+} else {
+    Console.print("Index.new: ERROR \n");
+}
+index.add(xb.getLength() / D, xb.buf);
+
+// Perform the search
+def labels: array[Int[64], 6];
+def distances: array[Float, 6];
+index.search(xq.getLength() / D, xq.buf, 3, distances, labels);
+
+// Print the resutls
+def i: Int;
+def j: Int;
+for i = 0, i < xq.getLength() / D, i++ {
+    Console.print("Query %i:\n", i);
+    for j = 0, j < 3, j++ {
+        Console.print("  Neighbor ");
+        Console.print(j);
+        Console.print(", idx= ");
+        Console.print(labels(i * 3 + j));
+        Console.print(", dist= ");
+        Console.print(distances(i * 3 + j));
+        Console.print("\n");
+    }
+}
+
+Index.free(index);

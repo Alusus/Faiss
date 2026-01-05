@@ -1,0 +1,18 @@
+@merge module Faiss {
+    class RangeQueryResult {
+        @expname[faiss_RangeQueryResult_add]
+        handler this.add(
+            dis: Float,
+            id: Int[64]
+        ): Int;
+
+        @expname[faiss_RangeQueryResult_qno]
+        handler this.qno: Int[64];
+
+        @expname[faiss_RangeQueryResult_nres]
+        handler this.nres: ArchWord;
+
+        @expname[faiss_RangeQueryResult_pres]
+        handler this.pres: ref[RangeSearchPartialResult];
+    }
+}

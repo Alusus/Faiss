@@ -1,0 +1,59 @@
+import "Srl/Console";
+import "Srl/Array";
+import "Apm";
+Apm.importFile("Alusus/Faiss");
+use Faiss;
+use Srl;
+
+def D: int = 8;
+def NB: Int[64] = 80;
+def NQ: Int[64] = 2;
+def K: Int[64] = 3;
+
+// Prepare the data
+def xb: Array[Float];
+def i: Int[64] = 0;
+for i = 0, i < NB * D, i++ {
+    xb.add((i % D) + 1);
+}
+def xq: Array[Float];
+for i = 0, i < NQ * D, i++ {
+    xq.add((i % D) + 1.5);
+}
+
+// Prepare the index
+def index: ref[IndexIvf];
+if Index.new(index, D, "IVF1,Flat", MetricType.L2) == 0 {
+    Console.print("Index.new: OK\n");
+} else {
+    Console.print("Index.new: ERROR\n");
+}
+index.train(NB, xb.buf);
+index.add(NB, xb.buf);
+
+def ps: ref[ParameterSpace];
+ParameterSpace.new(ps);
+ps.setIndexParameter(index, "nprobe", 2.0);
+ParameterSpace.free(ps);
+
+// Perform the search
+def labels: array[Int[64], 6];
+def distances: array[float, 6];
+index.search(NQ, xq.buf, 3, distances, labels);
+
+// Print the results
+def j: int = 0;
+for i = 0, i < NQ, i++ {
+    Console.print("Query %i:\n", i);
+    for j = 0, j < 3, j++ {
+        Console.print("  Neighbor ");
+        Console.print(j);
+        Console.print(", idx= ");
+        Console.print(labels(i * 3 + j));
+        Console.print(", dist= ");
+        Console.print(distances(i * 3 + j));
+        Console.print("\n");
+    }
+}
+
+Index.free(index);

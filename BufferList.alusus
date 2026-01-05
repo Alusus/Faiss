@@ -1,0 +1,37 @@
+@merge module Faiss {
+    class BufferList {
+        @expname[faiss_BufferList_new]
+        func new(
+            obj: ref[ref[BufferList]],
+            bufferSize: ArchWord
+        ): Int;
+
+        @expname[faiss_BufferList_free]
+        func free(
+            bl: ref[BufferList]
+        );
+
+        @expname[faiss_BufferList_append_buffer]
+        handler this.appendBuffer(): Int;
+
+        @expname[faiss_BufferList_add]
+        handler this.add(
+            id: Int[64],
+            dis: Float
+        ): Int;
+
+        @expname[faiss_BufferList_copy_range]
+        handler this.copyRange(
+            ofs: ArchWord,
+            n: ArchWord,
+            destIds: ref[array[Int[64]]],
+            destDis: ref[array[Float]]
+        ): Int;
+
+        @expname[faiss_BufferList_buffer_size]
+        handler this.bufferSize: ArchWord;
+
+        @expname[faiss_BufferList_wp]
+        handler this.wp: ArchWord;
+    }
+}

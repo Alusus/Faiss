@@ -1,0 +1,24 @@
+@merge module Faiss {
+    class RangeSearchPartialResult {
+        @expname[faiss_RangeSearchPartialResult_new]
+        func new(
+            p_res: ref[ref[RangeSearchPartialResult]],
+            res_in: ref[RangeSearchResult]
+        ): Int;
+
+        @expname[faiss_RangeSearchPartialResult_set_lims]
+        handler this.setLims(): Int;
+
+        @expname[faiss_RangeSearchPartialResult_finalize]
+        handler this.finalize(): Int;
+
+        @expname[faiss_RangeSearchPartialResult_new_result]
+        handler this.newResult(
+            qno: Int[64],
+            obj: ref[ref[RangeQueryResult]]
+        ): Int;
+
+        @expname[faiss_RangeSearchPartialResult_res]
+        handler this.res: ref[RangeSearchResult];
+    }
+}

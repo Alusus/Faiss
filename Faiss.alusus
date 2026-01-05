@@ -1,0 +1,61 @@
+import "Srl/System";
+import "Srl/String";
+import "Core";
+
+def useGpu: CharsPtr = Srl.System.getEnv("FAISS_USE_GPU");
+if useGpu == 0 or !Srl.String.isEqual(useGpu, "1") {
+    Core.importFile("Bin/Cpu/libfaiss.so");
+    Core.importFile("Bin/Cpu/libfaiss_c.so");
+} else {
+    Core.importFile("Bin/Gpu/libfaiss.so");
+    Core.importFile("Bin/Gpu/libfaiss_c.so");
+}
+
+import "ParameterRange";
+import "ParameterSpace";
+import "RangeSearchResult";
+import "RangeSearchPartialResult";
+import "RangeQueryResult";
+import "IdSelector";
+import "BufferList";
+import "DistanceComputer";
+import "Clustering";
+import "Index";
+import "SearchParameters";
+
+@merge module Faiss {
+    def ErrorCode: {
+        def OK: 0;
+        def UNKNOWN_EXCEPT: -1;
+        def FAISS_EXCEPT: -2;
+        def STD_EXCEPT: -4;
+    };
+
+    def MetricType: {
+        def INNER_PRODUCT: 0;
+        def L2: 1;
+        def L1: 2;
+        def LINF: 3;
+        def LP: 4;
+
+        def CANBERRA: 20;
+        def BRAY_CURTIS: 21;
+        def JENSEN_SHANNON: 22;
+    }
+
+    @expname[faiss_get_last_error]
+    func getLastError(): CharsPtr;
+
+    @expname[faiss_kmeans_clustering]
+    func kmeansClustering(
+        d: ArchWord,
+        n: ArchWord,
+        k: ArchWord,
+        x: ref[array[Float]],
+        centroids: ref[array[Float]],
+        q_error: ref[Float]
+    ) Int;
+
+    @expname[faiss_get_indexIVF_stats]
+    func faissGetIndexIvfStats(): ptr[IndexIvfStats];
+}

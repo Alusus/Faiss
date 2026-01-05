@@ -1,0 +1,47 @@
+@merge module Faiss {
+    class ParameterSpace {
+        @expname[faiss_ParameterSpace_new]
+        func new(obj: ref[ref[ParameterSpace]]): Int;
+
+        @expname[faiss_ParameterSpace_free]
+        func free(obj: ref[ParameterSpace]);
+
+        @expname[faiss_ParameterSpace_n_combinations]
+        handler this.nCombinations: ArchWord;
+
+        @expname[faiss_ParameterSpace_combination_name]
+        handler this.getCombinationName(
+            combIndex: ArchWord,
+            outBuf: CharsPtr,
+            bufSize: ArchWord
+        ): Int;
+
+        @expname[faiss_ParameterSpace_set_index_parameter]
+        handler this.setIndexParameter(
+            index: ref[Index],
+            paramName: CharsPtr,
+            val: Float[64]
+        ): Int;
+
+        @expname[faiss_ParameterSpace_set_index_parameters]
+        handler this.setIndexParameters(
+            index: ref[Index],
+            params: CharsPtr
+        ): Int;
+
+        @expname[faiss_ParameterSpace_set_index_parameters_cno]
+        handler this.seIndexParametersCno(
+            index: ref[Index],
+            val: ArchWord
+        ): Int;
+
+        @expname[faiss_ParameterSpace_display]
+        handler this.display();
+
+        @expname[faiss_ParameterSpace_add_range]
+        handler this.addRange(
+            name: CharsPtr,
+            outRange: ref[ref[ParameterRange]]
+        ): Int;
+    }
+}

@@ -1,0 +1,121 @@
+@merge module Faiss {
+    class Clustering {
+        @expname[faiss_Clustering_new]
+        func new(
+            out: ref[ref[Clustering]],
+            d: Int,
+            k: Int
+        ): Int;
+
+        @expname[faiss_Clustering_new_with_params]
+        func new(
+            out: ref[ref[Clustering]],
+            d: Int,
+            k: Int,
+            params: ptr[ClusteringParameters]
+        ): Int;
+
+        @expname[faiss_Clustering_free]
+        func free(
+            clustering: ref[Clustering]
+        );
+
+        @expname[faiss_Clustering_niter]
+        handler this.nIter: Int;
+
+        @expname[faiss_Clustering_nredo]
+        handler this.nRedo: Int;
+
+        @expname[faiss_Clustering_verbose]
+        handler this.verbose: Int;
+
+        @expname[faiss_Clustering_spherical]
+        handler this.spherical: Int;
+
+        @expname[faiss_Clustering_int_centroids]
+        handler this.intCentroids: Int;
+
+        @expname[faiss_Clustering_update_index]
+        handler this.updateIndex: Int;
+
+        @expname[faiss_Clustering_frozen_centroids]
+        handler this.frozenCentroids: Int;
+
+        @expname[faiss_Clustering_min_points_per_centroid]
+        handler this.minPointsPerCentroid: Int;
+
+        @expname[faiss_Clustering_max_points_per_centroid]
+        handler this.maxPointsPerCentroid: Int;
+
+        @expname[faiss_Clustering_seed]
+        handler this.seed: Int;
+
+        @expname[faiss_Clustering_decode_block_size]
+        handler this.decodeBlockSize: ArchWord;
+
+        @expname[faiss_Clustering_d]
+        handler this.d: ArchWord;
+
+        @expname[faiss_Clustering_k]
+        handler this.k: ArchWord;
+
+        @expname[faiss_Clustering_centroids]
+        handler this.getCentroids(
+            centroids: ref[ref[array[Float]]],
+            size: ref[ArchWord]
+        );
+
+        @expname[faiss_Clustering_iteration_stats]
+        handler this.getIterationStats(
+            stats_out: ref[ref[ClusteringIterationStats]],
+            size: ref[ArchWord]
+        );
+
+        @expname[faiss_Clustering_train]
+        handler this.train(
+            n: Int[64],
+            x: ref[Float],
+            index: ref[Index]
+        ): Int;
+    }
+
+    class ClusteringParameters {
+        def niter: Int; ///< clustering iterations
+        def nredo: Int; ///< redo clustering this many times and keep best
+
+        def verbose: Int;         ///< (bool)
+        def spherical: Int;       ///< (bool) do we want normalized centroids?
+        def intCentroids: Int;    ///< (bool) round centroids coordinates to integer
+        def updateIndex: Int;     ///< (bool) update index after each iteration?
+        def frozenCentroids: Int; ///< (bool) use the centroids provided as input and do
+                                  ///< not change them during iterations
+
+        def minPointsPerCentroid: Int; ///< otherwise you get a warning
+        def maxPointsPerCentroid: Int; ///< to limit size of dataset
+
+        def seed: Int;                 ///< seed for the random number generator
+        def decodeBlockSize: ArchWord; ///< how many vectors at a time to decode
+
+        @expname[faiss_ClusteringParameters_init]
+        func init(
+            params: ref[ref[ClusteringParameters]]
+        );
+    }
+
+    class ClusteringIterationStats {
+        @expname[faiss_ClusteringIterationStats_obj]
+        handler this.obj: Float;
+
+        @expname[faiss_ClusteringIterationStats_time]
+        handler this.time: Float[64];
+
+        @expname[faiss_ClusteringIterationStats_time_search]
+        handler this.timeSearch: Float[64];
+
+        @expname[faiss_ClusteringIterationStats_imbalance_factor]
+        handler this.imbalanceFactor: Float[64];
+
+        @expname[faiss_ClusteringIterationStats_nsplit]
+        handler this.nSplit: Int;
+    }
+}

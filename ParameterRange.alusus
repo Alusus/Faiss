@@ -1,0 +1,12 @@
+@merge module Faiss {
+    class ParameterRange {
+        @expname[faiss_ParameterRange_name]
+        handler this.name: CharsPtr;
+
+        @expname[faiss_ParameterRange_values]
+        handler this.getValues(
+            outValues: ref[ref[array[Float[64]]]],
+            outSize: ref[ArchWord]
+        );
+    }
+}

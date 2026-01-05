@@ -1,87 +1,61 @@
-import "/home/sleman/miniconda3/lib/libfaiss_c.so";
-import "Srl/Console";
-use Srl;
-@merge module Faiss {
+import "Srl/System";
+import "Srl/String";
+import "Core";
 
-    def idx_t : alias Int[64];
-    def faiss_idx_t : alias Int[64];
-    def faiss_component_t : alias Float;
-    def faiss_distance_t : alias Float;
-    class Index {
-    }
-
-    class IndexBinary {
-    }
-
-    class SearchParameters {
-    }
-
-    class ParameterRange {
-    }
-
-    class ParameterSpace {
-    }
-
-    class IndexFlat {
-        @injection def basicWidget: Index;
-    }
-
-    class IndexBinaryFlat {
-        @injection def basicWidget: IndexBinary;
-    }
-
-    class SearchParametersIVF {
-        @injection def basicWidget: SearchParameters;
-    }
-    @expname[faiss_IndexFlat_cast]
-    func faissIndexFlatCast(base: ptr[Index]): ptr[IndexFlat];
-
-    @expname[faiss_IndexIVFFlat_cast]
-    func faissIndexIVFFlatCast(base: ptr[Index]): ptr[IndexIVFFlat];
-
-    @expname[faiss_IndexBinaryFlat_cast]
-    func faissIndexBinaryFlatCast(base: ptr[IndexBinary]): ptr[IndexBinaryFlat];
-
-    @expname[faiss_SearchParametersIVF_cast]
-    func faiss_SearchParametersIVF_cast(base: ptr[SearchParameters]): ptr[SearchParametersIVF];
-
-    @expname[faiss_Index_d]
-    func faiss_Index_d(this: ptr[Index]): idx_t;
-
-    @expname[faiss_Index_set_d]
-    func faiss_Index_set_d(this: ptr[Index], value: idx_t);
-
-    @expname[faiss_Index_ntotal]
-    func faiss_Index_ntotal(this: ptr[Index]): faiss_idx_t;
-
-    @expname[faiss_Index_set_ntotal]
-    func faiss_Index_set_ntotal(this: ptr[Index], n: faiss_idx_t);
-
-    @expname[faiss_SearchParameters_nprobe]
-    func faiss_SearchParameters_nprobe(this: ptr[SearchParametersIVF]): int;
-
-    @expname[faiss_SearchParameters_set_nprobe]
-    func faiss_SearchParameters_set_nprobe(this: ptr[SearchParametersIVF], value: int);
-
-    @expname[faiss_Index_free]
-    func faiss_Index_free(this: ptr[Index]);
-
-    @expname[faiss_IndexBinary_free]
-    func faiss_IndexBinary_free(this: ptr[IndexBinary]);
-
-    @expname[faiss_SearchParameters_free]
-    func faiss_SearchParameters_free(this: ptr[SearchParameters]);
+def useGpu: CharsPtr = Srl.System.getEnv("FAISS_USE_GPU");
+if useGpu == 0 or !Srl.String.isEqual(useGpu, "1") {
+    Core.importFile("Bin/Cpu/libfaiss.so");
+    Core.importFile("Bin/Cpu/libfaiss_c.so");
+} else {
+    Core.importFile("Bin/Gpu/libfaiss.so");
+    Core.importFile("Bin/Gpu/libfaiss_c.so");
 }
-import "AutoTune.alusus";
-    import "AuxIndexStructures.alusus";
-    import "CloneIndex.alusus";
-    import "Clustering.alusus";
-    import "index.alusus";
-    import "IndexBinary.alusus";
-    import "IndexBinaryIvf.alusus";
-    import "IndexClone.alusus";
-    import "IndexFactory.alusus";
-    import "IndexFlat.alusus";
-    import "IndexIVF.alusus";
-    import "IoFaiss.alusus";
-    import "VectorTransform.alusus";
+
+import "ParameterRange";
+import "ParameterSpace";
+import "RangeSearchResult";
+import "RangeSearchPartialResult";
+import "RangeQueryResult";
+import "IdSelector";
+import "BufferList";
+import "DistanceComputer";
+import "Clustering";
+import "Index";
+import "SearchParameters";
+
+@merge module Faiss {
+    def ErrorCode: {
+        def OK: 0;
+        def UNKNOWN_EXCEPT: -1;
+        def FAISS_EXCEPT: -2;
+        def STD_EXCEPT: -4;
+    };
+
+    def MetricType: {
+        def INNER_PRODUCT: 0;
+        def L2: 1;
+        def L1: 2;
+        def LINF: 3;
+        def LP: 4;
+
+        def CANBERRA: 20;
+        def BRAY_CURTIS: 21;
+        def JENSEN_SHANNON: 22;
+    }
+
+    @expname[faiss_get_last_error]
+    func getLastError(): CharsPtr;
+
+    @expname[faiss_kmeans_clustering]
+    func kmeansClustering(
+        d: ArchWord,
+        n: ArchWord,
+        k: ArchWord,
+        x: ref[array[Float]],
+        centroids: ref[array[Float]],
+        q_error: ref[Float]
+    ) Int;
+
+    @expname[faiss_get_indexIVF_stats]
+    func faissGetIndexIvfStats(): ptr[IndexIvfStats];
+}

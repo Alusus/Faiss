@@ -1,0 +1,118 @@
+@merge module Faiss {
+    class IdSelector {
+        @expname[faiss_IDSelector_free]
+        func free(sel: ref[IdSelector]);
+
+        @expname[faiss_IDSelector_is_member]
+        handler this.isMember(id: Int[64]): Int;
+    }
+
+    class IdSelectorBatch {
+        @injection def idSelector: IdSelector;
+
+        @expname[faiss_IDSelectorBatch_new]
+        func new(
+            p_sel: ref[ref[IdSelectorBatch]],
+            n: ArchWord,
+            indices: ref[array[Int[64]]]
+        ): Int;
+
+        @expname[faiss_IDSelectorBatch_free]
+        func free(
+            sel: ref[IdSelectorBatch]
+        );
+
+        @expname[faiss_IDSelectorBatch_nbits]
+        handler this.nbits: Int;
+
+        @expname[faiss_IDSelectorBatch_mask]
+        handler this.mask: Int[64];
+    }
+
+    class IdSelectorBitmap {
+        @injection def idSelector: IdSelector;
+
+        @expname[faiss_IDSelectorBitmap_new]
+        func new(
+            p_sel: ref[ref[IdSelectorBitmap]],
+            n: ArchWord,
+            bitmap: ref[array[Word[8]]]
+        ): Int;
+
+        @expname[faiss_IDSelectorBitmap_free]
+        func free(
+            sel: ref[IdSelectorBitmap]
+        );
+
+        @expname[faiss_IDSelectorBitmap_n]
+        handler this.n: ArchWord;
+
+        @expname[faiss_IDSelectorBitmap_bitmap]
+        handler this.bitmap: ref[array[Word[8]]];
+    }
+
+    class IdSelectorRange {
+        @injection def idSelector: IdSelector;
+
+        @expname[faiss_IDSelectorRange_new]
+        func new(
+            p_sel: ref[ref[IdSelectorRange]],
+            imin: Int[64],
+            imax: Int[64]
+        ): Int;
+
+        @expname[faiss_IDSelectorRange_free]
+        func free(
+            sel: ref[IdSelectorRange]
+        );
+
+        @expname[faiss_IDSelectorRange_imin]
+        handler this.imin: Int[64];
+
+        @expname[faiss_IDSelectorRange_imax]
+        handler this.imax: Int[64];
+    }
+
+    class IdSelectorNot {
+        @injection def idSelector: IdSelector;
+
+        @expname[faiss_IDSelectorNot_new]
+        func new(
+            p_sel: ref[ref[IdSelectorNot]],
+            sel: ref[IdSelector]
+        ): Int;
+    }
+
+    class IdSelectorAnd {
+        @injection def idSelector: IdSelector;
+
+        @expname[faiss_IDSelectorAnd_new]
+        func new(
+            p_sel: ref[ref[IdSelectorAnd]],
+            lhs: ref[IdSelector],
+            rhs: ref[IdSelector]
+        ): Int;
+    }
+
+    class IdSelectorOr {
+        @injection def idSelector: IdSelector;
+
+        @expname[faiss_IDSelectorOr_new]
+        func new(
+            p_sel: ref[ref[IdSelectorOr]],
+            lhs: ref[IdSelector],
+            rhs: ref[IdSelector]
+        ): Int;
+    }
+
+    class IdSelectorXor {
+        @injection def idSelector: IdSelector;
+
+        @expname[faiss_IDSelectorXOr_new]
+        func new(
+            p_sel: ref[ref[IdSelectorXor]],
+            lhs: ref[IdSelector],
+            rhs: ref[IdSelector]
+        ): Int;
+    }
+}

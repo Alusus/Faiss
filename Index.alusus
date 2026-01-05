@@ -1,0 +1,562 @@
+@merge module Faiss {
+    class Index {
+        @expname[faiss_index_factory]
+        func new(
+            obj: ref[ref[Index]],
+            d: Int,
+            description: CharsPtr,
+            metric: Int
+        ): Int;
+
+        @expname[faiss_clone_index]
+        func clone(
+            idx: ref[Index],
+            out: ref[ref[Index]]
+        ): Int;
+
+        @expname[faiss_Index_free]
+        func free(obj: ref[Index]);
+
+        @expname[faiss_Index_d]
+        handler this.d: Int[64];
+
+        @expname[faiss_Index_set_d]
+        handler this.d = Int[64];
+
+        @expname[faiss_Index_ntotal]
+        handler this.nTotal: Int[64];
+
+        @expname[faiss_Index_set_ntotal]
+        handler this.nTotal = Int[64];
+
+        @expname[faiss_Index_is_trained]
+        handler this.isTrained: Int;
+
+        @expname[faiss_Index_metric_type]
+        handler this.metricType: MetricType;
+
+        @expname[faiss_Index_verbose]
+        handler this.verbose: Int;
+
+        @expname[faiss_Index_set_verbose]
+        handler this.verbose = Int;
+
+        @expname[faiss_Index_train]
+        handler this.train(n: Int[64], x: ref[array[Float]]): Int;
+
+        @expname[faiss_Index_add]
+        handler this.add(n: Int[64], x: ref[array[Float]]): Int;
+
+        @expname[faiss_Index_add_with_ids]
+        handler this.add(n: Int[64], x: ref[array[Float]], xids: ref[array[Int[64]]]): Int;
+
+        @expname[faiss_Index_search]
+        handler this.search(
+            n: Int[64],
+            x: ref[array[Float]],
+            k: Int[64],
+            distances: ref[array[Float]],
+            labels: ref[array[Int[64]]]
+        ): Int;
+
+        @expname[faiss_Index_search_with_params]
+        handler this.search(
+            n: Int[64],
+            x: ref[array[Float]],
+            k: Int[64],
+            params: ref[SearchParameters],
+            distances: ref[array[Float]],
+            labels: ref[array[Int[64]]]
+        ): Int;
+
+        @expname[faiss_Index_range_search]
+        handler this.rangeSearch(
+            n: Int[64],
+            x: ref[array[Float]],
+            radius: Float,
+            result: ref[RangeSearchResult]
+        ): Int;
+
+        @expname[faiss_Index_assign]
+        handler this.assign(
+            n: Int[64],
+            x: ref[array[Float]],
+            labels: ref[array[Int[64]]],
+            k: Int[64]
+        ): Int;
+
+        @expname[faiss_Index_reset]
+        handler this.reset(): Int;
+
+        @expname[faiss_Index_remove_ids]
+        handler this.removeIds(
+            sel: ref[IdSelector],
+            nRemoved: ref[ArchWord]
+        ): Int;
+
+        @expname[faiss_Index_reconstruct]
+        handler this.reconstruct(
+            key: Int[64],
+            recons: ref[array[Float]]
+        ): Int;
+
+        @expname[faiss_Index_reconstruct_n]
+        handler this.reconstruct(
+            i0: Int[64],
+            ni: Int[64],
+            recons: ref[array[Float]]
+        ): Int;
+
+        @expname[faiss_Index_compute_residual]
+        handler this.computeResidual(
+            x: ref[array[Float]],
+            residual: ref[array[Float]],
+            key: Int[64]
+        ): Int;
+
+        @expname[faiss_Index_compute_residual_n]
+        handler this.computeResidual(
+            n: Int[64],
+            x: ref[array[Float]],
+            residuals: ref[array[Float]],
+            keys: ref[array[Int[64]]]
+        ): Int;
+
+        @expname[faiss_Index_sa_code_size]
+        handler this.getSaCodeSize(size: ref[ArchWord]): Int;
+
+        @expname[faiss_Index_sa_encode]
+        handler this.saEncode(
+            n: Int[64],
+            x: ref[array[Float]],
+            bytes: ref[array[Word[8]]]
+        ): Int;
+
+        @expname[faiss_Index_sa_decode]
+        handler this.saDecode(
+            n: Int[64],
+            bytes: ref[array[Word[8]]],
+            x: ref[array[Float]]
+        ): Int;
+    }
+
+    class IndexBinary {
+        @injection def index: Index;
+
+        @expname[faiss_index_binary_factory]
+        func new(
+            obj: ref[ref[IndexBinary]],
+            d: Int,
+            description: CharsPtr
+        ): Int;
+
+        @expname[faiss_clone_index_binary]
+        func clone(
+            idx: ref[IndexBinary],
+            out: ref[ref[IndexBinary]]
+        ): Int;
+
+        @expname[faiss_IndexBinary_free]
+        func free(obj: ref[IndexBinary]);
+
+        @expname[faiss_IndexBinary_d]
+        handler this.d: Int;
+
+        @expname[faiss_IndexBinary_is_trained]
+        handler this.isTrained: Int;
+
+        @expname[faiss_IndexBinary_ntotal]
+        handler this.nTotal: Int[64];
+
+        @expname[faiss_IndexBinary_metric_type]
+        handler this.metricType: MetricType;
+
+        @expname[faiss_IndexBinary_verbose]
+        handler this.verbose: Int;
+
+        @expname[faiss_IndexBinary_set_verbose]
+        handler this.verbose = Int;
+
+        @expname[faiss_IndexBinary_train]
+        handler this.train(n: Int[64], x: ref[array[Word[8]]]): Int;
+
+        @expname[faiss_IndexBinary_add]
+        handler this.add(n: Int[64], x: ref[array[Word[8]]]): Int;
+
+        @expname[faiss_IndexBinary_add_with_ids]
+        handler this.add(
+            n: Int[64],
+            x: ref[array[Word[64]]],
+            xids: ref[array[Int[64]]]
+        ): Int;
+
+        @expname[faiss_IndexBinary_search]
+        handler this.search(
+            n: Int[64],
+            x: ref[array[Word[8]]],
+            k: Int[64],
+            distances: ref[array[Int]],
+            labels: ref[array[Int[64]]]
+        ): Int;
+
+        @expname[faiss_IndexBinary_range_search]
+        handler this.search(
+            n: Int[64],
+            x: ref[array[Word[8]]],
+            radius: Int,
+            result: ref[RangeSearchResult]
+        ): Int;
+
+        @expname[faiss_IndexBinary_assign]
+        func assign(
+            n: Int[64],
+            x: ref[array[Word[8]]],
+            labels: ref[array[Int[64]]],
+            k: Int[64]
+        ): Int;
+
+        @expname[faiss_IndexBinary_reset]
+        handler this.reset(): Int;
+
+        @expname[faiss_IndexBinary_remove_ids]
+        handler this.removeIds(
+            sel: ref[IdSelector],
+            nRemoved: ref[ArchWord]
+        ): Int;
+
+        @expname[faiss_IndexBinary_reconstruct]
+        handler this.reconstruct(
+            key: Int[64],
+            recons: ref[array[Word[8]]]
+        ): Int;
+
+        @expname[faiss_IndexBinary_reconstruct_n]
+        handler this.reconstruct(
+            i0: Int[64],
+            ni: Int[64],
+            recons: ref[array[Word[8]]]
+        ): Int;
+    }
+
+    class IndexBinaryIvf {
+        @injection def indexBinary: IndexBinary;
+
+        @expname[faiss_IndexBinaryIVF_free]
+        func free(obj: ref[IndexBinaryIvf]);
+
+        @expname[faiss_IndexBinaryIVF_cast]
+        func cast(base: ref[IndexBinary]): ref[IndexBinaryIvf];
+
+        @expname[faiss_IndexBinaryIVF_nlist]
+        handler this.nList(): ArchWord;
+
+        @expname[faiss_IndexBinaryIVF_nprobe]
+        handler this.nProbe(): ArchWord;
+
+        @expname[faiss_IndexBinaryIVF_set_nprobe]
+        handler this.nProbe = ArchWord;
+
+        @expname[faiss_IndexBinaryIVF_quantizer]
+        handler this.quantizer: ref[IndexBinary];
+
+        @expname[faiss_IndexBinaryIVF_own_fields]
+        handler this.ownFields: Int;
+
+        @expname[faiss_IndexBinaryIVF_set_own_fields]
+        handler this.ownFields = Int;
+
+        @expname[faiss_IndexBinaryIVF_max_codes]
+        handler this.maxCodes: ArchWord;
+
+        @expname[faiss_IndexBinaryIVF_set_max_codes]
+        handler this.maxCodes = ArchWord
+
+        @expname[faiss_IndexBinaryIVF_use_heap]
+        handler this.useHeap: Int;
+
+        @expname[faiss_IndexBinaryIVF_set_use_heap]
+        handler this.useHeap = Int;
+
+        @expname[faiss_IndexBinaryIVF_per_invlist_search]
+        handler this.perInvlistSearch: Int;
+
+        @expname[faiss_IndexBinaryIVF_set_per_invlist_search]
+        handler this.perInvlistSearch = Int;
+
+        @expname[faiss_IndexBinaryIVF_merge_from]
+        handler this.mergeFrom(other: ref[IndexBinaryIvf], addId: Int[64]): Int;
+
+        @expname[faiss_IndexBinaryIVF_search_preassigned]
+        handler this.searchPreassigned(
+            n: Int[64],
+            x: ref[array[Word[8]]],
+            k: Int[64],
+            cidx: ref[array[Int[64]]],
+            cdis: ref[array[Int]],
+            dis: ref[array[Int]],
+            labels: ref[array[Int[64]]],
+            storePairs: Int,
+            params: ref[SearchParametersIvf]
+        ): Int;
+
+        @expname[faiss_IndexBinaryIVF_get_list_size]
+        handler this.getListSize(listNo: ArchWord): ArchWord;
+
+
+        @expname[faiss_IndexBinaryIVF_make_direct_map]
+        handler this.makeDirectMap(newMaintainDirectMap: Int): Int;
+
+        @expname[faiss_IndexBinaryIVF_imbalance_factor]
+        handler this.imbalanceFactor: Float[64];
+
+        @expname[faiss_IndexBinaryIVF_print_stats]
+        handler this.printStats();
+    }
+
+    class IndexFlat {
+        @injection def index: Index;
+
+        @expname[faiss_IndexFlat_new]
+        func new(obj: ref[ref[IndexFlat]]): Int;
+
+        @expname[faiss_IndexFlat_new_with]
+        func new(obj: ref[ref[IndexFlat]], d: Int[64], metric: MetricType): Int;
+
+        @expname[faiss_IndexFlat_cast]
+        func cast(base: ref[Index]): ref[IndexFlat];
+
+        @expname[faiss_IndexFlat_free]
+        func free(obj: ref[IndexFlat]);
+
+        @expname[faiss_IndexFlat_xb]
+        handler this.getXb(outXb: ref[ref[array[Float]]], outSize: ref[ArchWord]);
+
+        @expname[faiss_IndexFlat_compute_distance_subset]
+        handler this.computeDistanceSubset(
+            n: Int[64],
+            x: ref[array[Float]],
+            k: Int[64],
+            outDistances: ref[array[Float]],
+            labels: ref[array[Int[64]]]
+        ): Int;
+    }
+
+    class IndexFlatIp {
+        @injection def index: Index;
+
+        @expname[faiss_IndexFlatIP_new]
+        func new(obj: ref[ref[IndexFlatIp]]): Int;
+
+        @expname[faiss_IndexFlatIP_new_with]
+        func new(obj: ref[ref[IndexFlatIp]], d: Int[64]): Int;
+
+        @expname[faiss_IndexFlatIP_cast]
+        func cast(base: ref[Index]): ref[IndexFlatIp];
+
+        @expname[faiss_IndexFlatIP_free]
+        func free(obj: ref[IndexFlatIp]);
+    }
+
+    class IndexFlatL2 {
+        @injection def index: Index;
+
+        @expname[faiss_IndexFlatL2_new]
+        func new(obj: ref[ref[IndexFlatL2]]): Int;
+
+        @expname[faiss_IndexFlatL2_new_with]
+        func faissIndexFlatL2NewWith(obj: ref[ref[IndexFlatL2]], d: Int[64]): Int;
+
+        @expname[faiss_IndexFlatL2_cast]
+        func cast(base: ref[Index]): ref[IndexFlatL2];
+
+        @expname[faiss_IndexFlatL2_free]
+        func free(obj: ref[IndexFlatL2]);
+    }
+
+    class IndexRefineFlat {
+        @injection def index: Index;
+
+        @expname[faiss_IndexRefineFlat_new]
+        func new(obj: ref[ref[IndexRefineFlat]], base: ref[Index]): Int;
+
+        @expname[faiss_IndexRefineFlat_cast]
+        func cast(base: ref[Index]): ref[IndexRefineFlat];
+
+        @expname[faiss_IndexRefineFlat_free]
+        func free(obj: ref[IndexRefineFlat]);
+
+        @expname[faiss_IndexRefineFlat_own_fields]
+        handler this.ownFields: Int;
+
+        @expname[faiss_IndexRefineFlat_set_own_fields]
+        handler this.ownFields = Int;
+
+        @expname[faiss_IndexRefineFlat_k_factor]
+        handler this.kFactor: Float;
+
+        @expname[faiss_IndexRefineFlat_set_k_factor]
+        handler this.kFactor = Float;
+    }
+
+    class IndexFlat1D {
+        @injection def index: Index;
+
+        @expname[faiss_IndexFlat1D_new]
+        func new(obj: ref[ref[IndexFlat1D]]): Int;
+
+        @expname[faiss_IndexFlat1D_new_with]
+        func new(obj: ref[ref[IndexFlat1D]], continuousUpdate: Int): Int;
+
+        @expname[faiss_IndexFlat1D_cast]
+        func cast(base: ref[Index]): ref[IndexFlat1D];
+
+        @expname[faiss_IndexFlat1D_free]
+        func free(
+            obj: ref[IndexFlat1D]
+        );
+
+        @expname[faiss_IndexFlat1D_update_permutation]
+        handler this.updatePermutation(): Int;
+    }
+
+    class IndexIvf {
+        @injection def index: Index;
+
+        @expname[faiss_IndexIVF_free]
+        func free(obj: ref[IndexIvf]);
+
+        @expname[faiss_IndexIVF_cast]
+        func cast(base: ref[Index]): ref[IndexIvf];
+
+        @expname[faiss_IndexIVF_nlist]
+        handler this.nList: ArchWord;
+
+        @expname[faiss_IndexIVF_nprobe]
+        handler this.nProbe: ArchWord;
+
+        @expname[faiss_IndexIVF_set_nprobe]
+        handler this.nProbe = ArchWord;
+
+        @expname[faiss_IndexIVF_quantizer]
+        handler this.quantizer: ref[Index];
+
+        @expname[faiss_IndexIVF_quantizer_trains_alone]
+        handler this.quantizerTrainsAlone: Char;
+
+        @expname[faiss_IndexIVF_own_fields]
+        handler this.ownFields: Int;
+
+        @expname[faiss_IndexIVF_set_own_fields]
+        handler this.ownFields = Int;
+
+        @expname[faiss_IndexIVF_merge_from]
+        handler this.mergeFrom(other: ref[IndexIvf], addId: Int[64]): Int;
+
+        @expname[faiss_IndexIVF_copy_subset_to]
+        handler this.copySubsetTo(
+            other: ref[IndexIvf],
+            subsetType: Int,
+            a1: Int[64],
+            a2: Int[64]
+        ): Int;
+
+        @expname[faiss_IndexIVF_search_preassigned]
+        handler this.searchPreassigned(
+            n: Int[64],
+            x: ref[array[Float]],
+            k: Int[64],
+            assign: ref[array[Int[64]]],
+            centroidDis: ref[array[Float]],
+            distances: ref[array[Float]],
+            labels: ref[array[Int[64]]],
+            storePairs: Int
+        ): Int;
+
+        @expname[faiss_IndexIVF_get_list_size]
+        handler this.getListSize(listNo: ArchWord): ArchWord;
+
+        @expname[faiss_IndexIVF_make_direct_map]
+        handler this.makeDirectMap(newMaintainDirectMap: Int): Int;
+
+        @expname[faiss_IndexIVF_imbalance_factor]
+        handler this.imbalanceFactor: Float[64];
+
+        @expname[faiss_IndexIVF_print_stats]
+        handler this.printStats();
+
+        @expname[faiss_IndexIVF_invlists_get_ids]
+        handler this.getInvlistIds(listNo: ArchWord, invlist: ref[array[Int[64]]]);
+
+        @expname[faiss_IndexIVF_train_encoder]
+        handler this.trainEncoder(
+            n: Int[64],
+            x: ref[array[Float]],
+            assign: ref[array[Int[64]]]
+        ): Int;
+    }
+
+    class IndexIdMap {
+        @injection def index: Index;
+
+        @expname[faiss_IndexIDMap_new]
+        func new(obj: ref[ref[IndexIdMap]],idx: ref[Index]): Int;
+
+        @expname[faiss_IndexIDMap_cast]
+        func cast(base: ref[Index]): ref[IndexIdMap];
+
+        @expname[faiss_IndexIDMap_own_fields]
+        handler this.ownFields: Int;
+
+        @expname[faiss_IndexIDMap_set_own_fields]
+        handler this.ownFields = Int;
+
+        @expname[faiss_IndexIDMap_id_map]
+        handler this.getIdMap(
+            outMap: ref[ref[Int[64]]],
+            outSize: ref[ArchWord]
+        );
+
+        @expname[faiss_IndexIDMap_sub_index]
+        handler this.subIndex: ref[Index];
+    }
+
+    class IndexIdMap2 {
+        @injection def index: Index;
+
+        @expname[faiss_IndexIDMap2_new]
+        func new(obj: ref[ref[IndexIdMap2]], idx: ref[Index]): Int;
+
+        @expname[faiss_IndexIDMap2_cast]
+        func cast(base: ref[Index]): ref[IndexIdMap2];
+
+        @expname[faiss_IndexIDMap2_own_fields]
+        handler this.ownFields: Int;
+
+        @expname[faiss_IndexIDMap2_set_own_fields]
+        handler this.ownFields = Int;
+
+        @expname[faiss_IndexIDMap2_construct_rev_map]
+        handler this.constructRevMap(): Int;
+
+        @expname[faiss_IndexIDMap2_id_map]
+        handler this.getIdMap(
+            outMap: ref[ref[Int[64]]],
+            outSize: ref[ArchWord]
+        );
+
+        @expname[faiss_IndexIDMap2_sub_index]
+        handler this.subIndex: ref[Index];
+    }
+
+    class IndexIvfStats {
+        def nq: ArchWord;
+        def nList: ArchWord;
+        def nDis: ArchWord;
+        def nHeapUpdates: ArchWord;
+        def quantizationTime: Float[64];
+        def searchTime: Float[64];
+
+        @expname[faiss_IndexIVFStats_reset]
+        handler this.reset();
+    }
+}

@@ -1,0 +1,24 @@
+@merge module Faiss {
+    class DistanceComputer {
+        @expname[faiss_DistanceComputer_set_query]
+        handler this.setQuery(
+            x: ref[array[Float]]
+        ): Int;
+
+        @expname[faiss_DistanceComputer_vector_to_query_dis]
+        handler this.vectorToQueryDis(
+            i: Int[64],
+            qd: ref[array[Float]]
+        ): Int;
+
+        @expname[faiss_DistanceComputer_symmetric_dis]
+        handler this.symmetricDis(
+            i: Int[64],
+            j: Int[64],
+            vd: ref[array[Float]]
+        ): Int;
+
+        @expname[faiss_DistanceComputer_free]
+        func free(dc: ref[DistanceComputer]);
+    }
+}

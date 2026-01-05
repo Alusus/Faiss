@@ -1,0 +1,56 @@
+@merge module Faiss {
+    class SearchParameters {
+        @expname[faiss_SearchParameters_new]
+        func new(
+            obj: ref[ref[SearchParameters]],
+            sel: ref[IdSelector]
+        ): Int;
+
+        @expname[faiss_SearchParameters_free]
+        func free(obj: ref[SearchParameters]);
+
+        @expname[faiss_SearchParameters_nprobe]
+        handler this.nProbe: Int;
+
+        @expname[faiss_SearchParameters_set_nprobe]
+        handler this.nProbe = Int;
+    }
+
+    class SearchParametersIvf {
+        @injection def searchParameters: SearchParameters;
+
+        @expname[faiss_SearchParametersIVF_new]
+        func new(obj: ref[ref[SearchParametersIvf]]): Int;
+
+        @expname[faiss_SearchParametersIVF_new_with]
+        func new(
+            obj: ref[ref[SearchParametersIvf]],
+            sel: ref[IdSelector],
+            nprobe: ArchWord,
+            maxCodes: ArchWord
+        ): Int;
+
+        @expname[faiss_SearchParametersIVF_free]
+        func free(
+            obj: ref[SearchParametersIvf]
+        );
+
+        @expname[faiss_SearchParametersIVF_cast]
+        func cast(base: ref[SearchParameters]): ref[SearchParametersIvf];
+
+        @expname[faiss_SearchParametersIVF_sel]
+        handler this.sel: ref[IdSelector];
+
+        @expname[faiss_SearchParametersIVF_nprobe]
+        handler this.nProbe: ArchWord;
+
+        @expname[faiss_SearchParametersIVF_set_nprobe]
+        handler this.nProbe = ArchWord;
+
+        @expname[faiss_SearchParametersIVF_max_codes]
+        handler this.maxCodes: ArchWord;
+
+        @expname[faiss_SearchParametersIVF_set_max_codes]
+        handler this.maxCodes = ArchWord;
+    }
+}

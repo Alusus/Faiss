@@ -1,0 +1,41 @@
+@merge module Faiss {
+    class RangeSearchResult {
+        @expname[faiss_RangeSearchResult_new]
+        func new(
+            obj: ref[ref[RangeSearchResult]],
+            nq: Int[64]
+        ): Int;
+
+        @expname[faiss_RangeSearchResult_new_with]
+        func new(
+            obj: ref[ref[RangeSearchResult]],
+            nq: Int[64],
+            allocLims: Int
+        ): Int;
+
+        @expname[faiss_RangeSearchResult_free]
+        func free(
+            rsr: ref[RangeSearchResult]
+        );
+
+        @expname[faiss_RangeSearchResult_do_allocation]
+        handler this.doAllocation(): Int;
+
+        @expname[faiss_RangeSearchResult_nq]
+        handler this.nq: Int[64];
+
+        @expname[faiss_RangeSearchResult_buffer_size]
+        handler this.bufferSize(): ArchWord;
+
+        @expname[faiss_RangeSearchResult_lims]
+        handler this.getLims(
+            outLims: ref[ref[array[ArchWord]]]
+        );
+
+        @expname[faiss_RangeSearchResult_labels]
+        handler this.getLabels(
+            outLabels: ref[ref[array[Int[64]]]],
+            outDistances: ref[ref[ref[Float]]]
+        );
+    }
+}

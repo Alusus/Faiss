@@ -1,76 +1,52 @@
-Apm.importFile("Alusus/Faiss");
-import "../Faiss.alusus";
-
 import "Srl/Console";
-use Faiss;
+import "Srl/Array";
+import "Apm";
+Apm.importFile("Alusus/Faiss");
 use Srl;
-def a: idx_t = 5;
+use Faiss;
 
-def d: int = 4;
-def nb: idx_t = 5;
-def nq: idx_t = 2;
+// Input data
+def D: Int = 4;
+def xb: Array[Float]({
+    1.0,  2.0,  3.0,  4.0,
+    2.0,  3.0,  4.0,  5.0,
+    10.0, 11.0, 12.0, 13.0,
+    11.0, 12.0, 13.0, 14.0,
+    5.0,  6.0,  7.0,  8.0
+});
+def xq: Array[Float]({
+    1.5,  2.5,  3.5,  4.5,
+    10.5, 11.5, 12.5, 13.5
+});
 
-def xb: array[float, 20];
-//4 * 5
-def i: int = 0;
-for i = 1, i < 5, i++
-    xb(i - 1) = i;
-
-for i = 2, i <= 5, i++
-    xb(i + 2) = i;
-for i = 10, i < 14, i++
-    xb(i - 2) = i;
-for i = 11, i <= 14, i++
-    xb(i + 1) = i;
-for i = 5, i <= 8, i++
-    xb(i + 11) = i;
-/*
-         1.0,  2.0,  3.0,  4.0,
-         2.0,  3.0,  4.0,  5.0,
-        10.0, 11.0, 12.0, 13.0,
-        11.0, 12.0, 13.0, 14.0,
-         5.0,  6.0,  7.0,  8.0
-    */
-def xq: array[float, 8];
-//2 * 4
-/*
-         1.5,  2.5,  3.5,  4.5,
-        10.5, 11.5, 12.5, 13.5
-    */
-xq(0) = 1.5;
-xq(1) = 2.5;
-xq(2) = 3.5;
-xq(3) = 4.5;
-xq(4) = 10.5;
-xq(5) = 11.5;
-xq(6) = 12.5;
-xq(7) = 13.5;
-def index: ptr[Index];
-
-
-if faissIndexFactory(index~ptr, 4, "Flat", FaissMetricType.METRIC_INNER_PRODUCT) == 0 {
-    Console.print("\nfaiss_index_factory: OK \n");
+// Prepare the index
+def index: ref[Index];
+if Index.new(index, D, "Flat", MetricType.INNER_PRODUCT) == 0 {
+    Console.print("Index.new: OK \n");
 } else {
-    Console.print("\n faiss_index_factory: ERROR \n");
+    Console.print("Index.new: ERROR \n");
 }
+index.add(xb.getLength() / D, xb.buf);
 
-faissIndexAdd(index, nb, xb~ptr);
-def I: array[idx_t, 6];
-def D: array[float, 6];
+// Perform the search
+def labels: array[Int[64], 6];
+def distances: array[Float, 6];
+index.search(xq.getLength() / D, xq.buf, 3, distances, labels);
 
-def xxq: idx_t = 3;
-faissIndexSearch(index, nq, xq~ptr, 3, D~ptr, I~ptr);
-def j: int = 0;
-for i = 0, i < nq, i++ {
+// Print the resutls
+def i: Int;
+def j: Int;
+for i = 0, i < xq.getLength() / D, i++ {
     Console.print("Query %i:\n", i);
     for j = 0, j < 3, j++ {
-        Console.print("  Neighbor");
+        Console.print("  Neighbor ");
         Console.print(j);
-        Console.print("idx= ");
-        Console.print(I(i * 3 + j));
-        Console.print("dist= ");
-        Console.print(D(i * 3 + j));
+        Console.print(", idx= ");
+        Console.print(labels(i * 3 + j));
+        Console.print(", dist= ");
+        Console.print(distances(i * 3 + j));
         Console.print("\n");
     }
 }
-faissIndexFree(index);
+
+Index.free(index);

@@ -1,7 +1,7 @@
 <div dir=rtl>
 
 # فـيس Faiss
-[[English]](readme.md)
+[[English]](README.md)
 
 روابط لغة الأسس لمكتبة [FAISS](https://github.com/facebookresearch/faiss) - مكتبة للبحث الفعّال عن التشابه وتجميع المتجهات الكثيفة.
 

@@ -1,5 +1,5 @@
 # Faiss
-[[العربية]](readme.ar.md)
+[[العربية]](README.ar.md)
 
 Alusus language bindings for the [FAISS library](https://github.com/facebookresearch/faiss) - A library for efficient similarity search and clustering of dense vectors.
 

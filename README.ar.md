@@ -845,7 +845,7 @@ export FAISS_USE_GPU=1
 
 ## الترخيص
 
-تتبع هذه الروابط ترخيص FAISS (MIT). راجع ملف `license` للتفاصيل.
+تتبع هذه الروابط ترخيص FAISS (MIT). راجع ملف `LICENSE` للتفاصيل.
 
 </div>
 

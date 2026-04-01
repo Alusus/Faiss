@@ -61,8 +61,10 @@ This library wraps the FAISS C API. For detailed documentation of concepts, algo
 #### Index
 Main index class for similarity search. [C API docs](https://github.com/facebookresearch/faiss/blob/main/c_api/Index_c.h)
 
-**Factory method:**
+**Static methods:**
 - `Index.new(obj: ref[ref[Index]], d: Int, description: CharsPtr, metric: Int): Int` - Create index using factory string
+- `Index.load(fname: CharsPtr, flags: Int, obj: ref[ref[Index]]): Int` - Load index from a file
+- `Index.save(obj: ref[Index], fname: CharsPtr): Int` - Save index to a file
 
 **Key methods:**
 - `train(n: Int[64], x: ref[array[Float]]): Int` - Train the index on data

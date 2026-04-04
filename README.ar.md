@@ -109,7 +109,7 @@ Index.free(index);
 #### فـهرس / Index
 الصنف الرئيسي للبحث عن التشابه. [توثيق واجهة C البرمجية](https://github.com/facebookresearch/faiss/blob/main/c_api/Index_c.h)
 
-**دالة المصنع:**
+**الدوال الساكنة:**
 - `أنشئ` / `new`
   ```alusus
   فـهرس.أنشئ(الكائن: سند[سند[فـهرس]]، ب: صـحيح، وصف: مـؤشر_محارف، نوع_القياس: صـحيح): صـحيح
@@ -120,10 +120,40 @@ Index.free(index);
   ```alusus
   Index.new(obj: ref[ref[Index]]، d: Int، وصف: CharsPtr، metric: Int): Int
   ```
-  
+
 </div>
 
   إنشاء فهرس باستخدام نص المصنع
+
+- `حمل` / `load`
+  ```alusus
+  فـهرس.حمل(اسم_الملف: مـؤشر_محارف، خيارات: صـحيح، الكائن: سند[سند[فـهرس]]): صـحيح
+  ```
+
+<div dir=ltr>
+
+  ```alusus
+  Index.load(fname: CharsPtr, flags: Int, obj: ref[ref[Index]]): Int
+  ```
+
+</div>
+
+  تحميل فهرس من ملف
+
+- `احفظ` / `save`
+  ```alusus
+  فـهرس.احفظ(الكائن: سند[فـهرس]، اسم_الملف: مـؤشر_محارف): صـحيح
+  ```
+
+<div dir=ltr>
+
+  ```alusus
+  Index.save(obj: ref[Index], fname: CharsPtr): Int
+  ```
+
+</div>
+
+  حفظ الفهرس إلى ملف
 
 **الدوال الرئيسية:**
 - `درب` / `train`

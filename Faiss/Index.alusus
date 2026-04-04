@@ -8,6 +8,12 @@
             metric: Int
         ): Int;
 
+        @expname[faiss_read_index_fname]
+        func load(fname: CharsPtr, flags: Int, obj: ref[ref[Index]]): Int;
+
+        @expname[faiss_write_index_fname]
+        func save(obj: ref[Index], fname: CharsPtr): Int;
+
         @expname[faiss_clone_index]
         func clone(
             idx: ref[Index],

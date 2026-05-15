@@ -13,7 +13,7 @@
 
 ```alusus
 اشمل "مـحا"؛
-مـحا.اشمل_ملف("Alusus/Faiss"، "فـيس.أسس")؛
+مـحا.اشمل_حزمة("Alusus/Faiss@0.1"، "فـيس.أسس")؛
 استخدم فـيس؛
 ```
 
@@ -23,7 +23,7 @@
 
 ```alusus
 import "Apm";
-Apm.importFile("Alusus/Faiss");
+Apm.importPackage("Alusus/Faiss@0.1");
 use Faiss;
 ```
 
@@ -37,7 +37,7 @@ use Faiss;
 اشمل "مـتم/طـرفية"؛
 اشمل "مـتم/مـصفوفة"؛
 اشمل "مـحا"؛
-مـحا.اشمل_ملف("Alusus/Faiss"، "فـيس.أسس")؛
+مـحا.اشمل_حزمة("Alusus/Faiss@0.1"، "فـيس.أسس")؛
 استخدم مـتم؛
 استخدم فـيس؛
 
@@ -67,7 +67,7 @@ use Faiss;
 import "Srl/Console";
 import "Srl/Array";
 import "Apm";
-Apm.importFile("Alusus/Faiss");
+Apm.importPackage("Alusus/Faiss@0.1");
 use Srl;
 use Faiss;
 

@@ -11,7 +11,7 @@ This library provides Alusus bindings to FAISS, enabling high-performance vector
 
 ```alusus
 import "Apm";
-Apm.importFile("Alusus/Faiss");
+Apm.importPackage("Alusus/Faiss@0.1");
 use Faiss;
 ```
 
@@ -21,7 +21,7 @@ use Faiss;
 import "Srl/Console";
 import "Srl/Array";
 import "Apm";
-Apm.importFile("Alusus/Faiss");
+Apm.importPackage("Alusus/Faiss@0.1");
 use Srl;
 use Faiss;
 

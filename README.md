@@ -290,9 +290,4 @@ See [FAISS performance guidelines](https://github.com/facebookresearch/faiss/wik
 - **Research Paper**: [Billion-scale similarity search with GPUs](https://arxiv.org/abs/1702.08734)
 - **Alusus Language**: https://alusus.org
 
-## License
 
-Copyright (c) Facebook, Inc. and its affiliates.
-Copyright (c) Alusus Software Ltd. for the Alusus language bindings.
-
-This binding follows the FAISS license (MIT). See the `LICENSE` file for details.

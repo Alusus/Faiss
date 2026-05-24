@@ -873,9 +873,7 @@ export FAISS_USE_GPU=1
 - **ورقة بحثية**: [البحث عن التشابه بمليارات المقاييس مع GPUs](https://arxiv.org/abs/1702.08734)
 - **لغة الأسس**: https://alusus.org
 
-## الترخيص
 
-تتبع هذه الروابط ترخيص FAISS (MIT). راجع ملف `LICENSE` للتفاصيل.
 
 </div>
 

@@ -11,7 +11,7 @@
 
 ## التثبيت
 
-```alusus
+```
 اشمل "مـحا"؛
 مـحا.اشمل_حزمة("Alusus/Faiss@0.1"، "فـيس.أسس")؛
 استخدم فـيس؛
@@ -21,7 +21,7 @@
 
 <div dir=ltr>
 
-```alusus
+```
 import "Apm";
 Apm.importPackage("Alusus/Faiss@0.1");
 use Faiss;
@@ -33,7 +33,7 @@ use Faiss;
 
 ### مثال بالعربية
 
-```alusus
+```
 اشمل "مـتم/طـرفية"؛
 اشمل "مـتم/مـصفوفة"؛
 اشمل "مـحا"؛
@@ -63,7 +63,7 @@ use Faiss;
 
 <div dir=ltr>
 
-```alusus
+```
 import "Srl/Console";
 import "Srl/Array";
 import "Apm";
@@ -97,732 +97,1038 @@ Index.free(index);
 
 تلتف هذه المكتبة حول واجهة FAISS البرمجية بلغة C. للحصول على توثيق مفصل حول المفاهيم والخوارزميات وأفضل الممارسات، يرجى الرجوع إلى التوثيق الرسمي لـ FAISS:
 
-- **التوثيق الرئيسي**: https://github.com/facebookresearch/faiss/wiki
-- **مرجع واجهة C البرمجية**: https://github.com/facebookresearch/faiss/blob/main/c_api/
-- **دليل البدء**: https://github.com/facebookresearch/faiss/wiki/Getting-started
-- **دليل اختيار الفهرس**: https://github.com/facebookresearch/faiss/wiki/Guidelines-to-choose-an-index
+* **التوثيق الرئيسي**: https://github.com/facebookresearch/faiss/wiki
+* **مرجع واجهة C البرمجية**: https://github.com/facebookresearch/faiss/blob/main/c_api/
+* **دليل البدء**: https://github.com/facebookresearch/faiss/wiki/Getting-started
+* **دليل اختيار الفهرس**: https://github.com/facebookresearch/faiss/wiki/Guidelines-to-choose-an-index
 
 ## مرجع الواجهة البرمجية
 
-### الأصناف الأساسية
+### فـهرس / Index
 
-#### فـهرس / Index
 الصنف الرئيسي للبحث عن التشابه. [توثيق واجهة C البرمجية](https://github.com/facebookresearch/faiss/blob/main/c_api/Index_c.h)
 
-**الدوال الساكنة:**
-- `أنشئ` / `new`
-  ```alusus
-  فـهرس.أنشئ(الكائن: سند[سند[فـهرس]]، ب: صـحيح، وصف: مـؤشر_محارف، نوع_القياس: صـحيح): صـحيح
-  ```
+#### أنشئ / new
+
+```
+فـهرس.أنشئ(الكائن: سند[سند[فـهرس]]، ب: صـحيح، وصف: مـؤشر_محارف، نوع_القياس: صـحيح): صـحيح
+```
 
 <div dir=ltr>
 
-  ```alusus
-  Index.new(obj: ref[ref[Index]]، d: Int، وصف: CharsPtr، metric: Int): Int
-  ```
+```
+func Index.new(obj: ref[ref[Index]], d: Int, description: CharsPtr, metric: Int): Int
+```
 
 </div>
 
-  إنشاء فهرس باستخدام نص المصنع
+إنشاء فهرس باستخدام نص المصنع.
 
-- `حمل` / `load`
-  ```alusus
-  فـهرس.حمل(اسم_الملف: مـؤشر_محارف، خيارات: صـحيح، الكائن: سند[سند[فـهرس]]): صـحيح
-  ```
+#### حمل / load
+
+```
+فـهرس.حمل(اسم_الملف: مـؤشر_محارف، خيارات: صـحيح، الكائن: سند[سند[فـهرس]]): صـحيح
+```
 
 <div dir=ltr>
 
-  ```alusus
-  Index.load(fname: CharsPtr, flags: Int, obj: ref[ref[Index]]): Int
-  ```
+```
+func Index.load(fname: CharsPtr, flags: Int, obj: ref[ref[Index]]): Int
+```
 
 </div>
 
-  تحميل فهرس من ملف
+تحميل فهرس من ملف.
 
-- `احفظ` / `save`
-  ```alusus
-  فـهرس.احفظ(الكائن: سند[فـهرس]، اسم_الملف: مـؤشر_محارف): صـحيح
-  ```
+#### احفظ / save
+
+```
+فـهرس.احفظ(الكائن: سند[فـهرس]، اسم_الملف: مـؤشر_محارف): صـحيح
+```
 
 <div dir=ltr>
 
-  ```alusus
-  Index.save(obj: ref[Index], fname: CharsPtr): Int
-  ```
+```
+func Index.save(obj: ref[Index], fname: CharsPtr): Int
+```
 
 </div>
 
-  حفظ الفهرس إلى ملف
+حفظ الفهرس إلى ملف.
 
-**الدوال الرئيسية:**
-- `درب` / `train`
-  ```alusus
-  فـهرس.درب(n: صـحيح[64]، x: سند[مصفوفة[عـائم]]): صـحيح
-  ```
-  
-<div dir=ltr>
+#### درب / train
 
-  ```alusus
-  Index.train(n: Int[64]، x: ref[array[Float]]): Int
-  ```
-
-</div>
-
-  تدريب الفهرس على البيانات
-
-- `أضف` / `add`
-  ```alusus
-  فـهرس.أضف(n: صـحيح[64]، x: سند[مصفوفة[عـائم]]): صـحيح
-  ```
- 
-<div dir=ltr>
-
-  ```alusus
-  Index.add(n: Int[64]، x: ref[array[Float]]): Int
-  ```
-
-</div>
-
-  إضافة متجهات إلى الفهرس
-
-- `ابحث` / `search`
-  ```alusus
-  فـهرس.ابحث(n: صـحيح[64]، x: سند[مصفوفة[عـائم]]، k: صـحيح[64]،
-     مسافات: سند[مصفوفة[عـائم]]، labels: سند[مصفوفة[صـحيح[64]]]
-   ): صـحيح
-  ```
-  
-<div dir=ltr>
-
-  ```alusus
-  Index.search(n: Int[64]، x: ref[array[Float]]، k: Int[64]،
-     distances: ref[array[Float]]، labels: ref[array[Int[64]]]
-   ): Int
-  ```
-
-</div>
-
-  البحث عن k من أقرب الجيران
-
-- `بحث_المدى` / `rangeSearch`
-  ```alusus
-  فـهرس.بحث_المدى(n: صـحيح[64]، x: سند[مصفوفة[عـائم]]، radius: عـائم،
-   result: سند[نـتيجة_بحث_مدى]): صـحيح
-  ```
+```
+فـهرس.درب(n: صـحيح[64]، x: سند[مصفوفة[عـائم]]): صـحيح
+```
 
 <div dir=ltr>
 
-  ```alusus
-  Index.rangeSearch(n: Int[64], x: ref[array[Float]], radius: Float,
-   result: ref[RangeSearchResult]): Int
-  ```
+```
+func index.train(n: Int[64], x: ref[array[Float]]): Int
+```
 
 </div>
 
-  البحث بنطاق
+تدريب الفهرس على البيانات.
 
-- `أعد_الضبط` / `reset`
-  ```alusus
-  فـهرس.أعد_الضبط(): صـحيح
-  ```
+#### أضف / add
+
+```
+فـهرس.أضف(n: صـحيح[64]، x: سند[مصفوفة[عـائم]]): صـحيح
+```
 
 <div dir=ltr>
 
-  ```alusus
-  Index.reset(): Int
-  ```
+```
+func index.add(n: Int[64], x: ref[array[Float]]): Int
+```
 
 </div>
 
-  إزالة جميع المتجهات من الفهرس
+إضافة متجهات إلى الفهرس.
 
-- `احذف_المعرفات` / `removeIds`
-  ```alusus
-  فـهرس.احذف_المعرفات(sel: سند[مـنتقي_معرف]، nRemoved: سند[كلمة_معمارية]): صـحيح
-  ```
+#### ابحث / search
+
+```
+فـهرس.ابحث(n: صـحيح[64]، x: سند[مصفوفة[عـائم]]، k: صـحيح[64]،
+   مسافات: سند[مصفوفة[عـائم]]، labels: سند[مصفوفة[صـحيح[64]]]
+ ): صـحيح
+```
 
 <div dir=ltr>
 
-  ```alusus
-  Index.removeIds(sel: ref[IdSelector], nRemoved: ref[ArchWord]): Int
-  ```
+```
+func index.search(n: Int[64], x: ref[array[Float]], k: Int[64], distances: ref[array[Float]], labels: ref[array[Int[64]]]): Int
+```
 
 </div>
 
-  إزالة متجهات محددة
+البحث عن k من أقرب الجيران.
 
-**الخصائص:**
-- `البعد` / `d`: `صحيح[64]` - بُعد المتجه
-- `العدد_الكلي` / `nTotal`: `صحيح[64]` - العدد الإجمالي للمتجهات المفهرسة
-- `مدرب` / `isTrained`: `صحيح` - ما إذا كان الفهرس مدرباً (0 أو 1)
-- `نوع_القياس` / `metricType`: `نـوع_قياس` - مقياس المسافة المستخدم
-- `إطناب` / `verbose`: `صحيح` - مستوى الإسهاب
+#### بحث_المدى / rangeSearch
 
-**التنظيف:**
-- `حرر` / `free`
-  ```alusus
-  فـهرس.حرر(obj: سند[فـهرس])
-  ```
+```
+فـهرس.بحث_المدى(n: صـحيح[64]، x: سند[مصفوفة[عـائم]]، radius: عـائم،
+ result: سند[نـتيجة_بحث_مدى]): صـحيح
+```
 
 <div dir=ltr>
 
-  ```alusus
-  Index.free(obj: ref[Index])
-  ```
+```
+func index.rangeSearch(n: Int[64], x: ref[array[Float]], radius: Float, result: ref[RangeSearchResult]): Int
+```
 
 </div>
 
-  تحرير ذاكرة الفهرس
+البحث بنطاق.
 
-#### فـهرس_مسطح / IndexFlat
+#### أعد_الضبط / reset
+
+```
+فـهرس.أعد_الضبط(): صـحيح
+```
+
+<div dir=ltr>
+
+```
+func index.reset(): Int
+```
+
+</div>
+
+إزالة جميع المتجهات من الفهرس.
+
+#### احذف_المعرفات / removeIds
+
+```
+فـهرس.احذف_المعرفات(sel: سند[مـنتقي_معرف]، nRemoved: سند[كلمة_معمارية]): صـحيح
+```
+
+<div dir=ltr>
+
+```
+func index.removeIds(sel: ref[IdSelector], nRemoved: ref[ArchWord]): Int
+```
+
+</div>
+
+إزالة متجهات محددة.
+
+#### البعد / d
+
+```
+البعد: صحيح[64]
+```
+
+<div dir=ltr>
+
+```
+index.d: Int[64]
+```
+
+</div>
+
+بُعد المتجه.
+
+#### العدد_الكلي / nTotal
+
+```
+العدد_الكلي: صحيح[64]
+```
+
+<div dir=ltr>
+
+```
+index.nTotal: Int[64]
+```
+
+</div>
+
+العدد الإجمالي للمتجهات المفهرسة.
+
+#### مدرب / isTrained
+
+```
+مدرب: صحيح
+```
+
+<div dir=ltr>
+
+```
+index.isTrained: Int
+```
+
+</div>
+
+ما إذا كان الفهرس مدرباً (0 أو 1).
+
+#### نوع_القياس / metricType
+
+```
+نوع_القياس: نـوع_قياس
+```
+
+<div dir=ltr>
+
+```
+index.metricType: MetricType
+```
+
+</div>
+
+مقياس المسافة المستخدم.
+
+#### إطناب / verbose
+
+```
+إطناب: صحيح
+```
+
+<div dir=ltr>
+
+```
+index.verbose: Int
+```
+
+</div>
+
+مستوى الإسهاب.
+
+#### حرر / free
+
+```
+فـهرس.حرر(obj: سند[فـهرس])
+```
+
+<div dir=ltr>
+
+```
+func Index.free(obj: ref[Index])
+```
+
+</div>
+
+تحرير ذاكرة الفهرس.
+
+### فـهرس_مسطح / IndexFlat
+
 فهرس القوة الغاشمة الذي يقوم بالبحث الدقيق. [دليل](https://github.com/facebookresearch/faiss/wiki/Faiss-indexes#flat-indexes)
 
-**الإنشاء:**
-- `أنشئ` / `new`
-  ```alusus
-  فـهرس_مسطح.أنشئ(obj: سند[سند[فـهرس_مسطح]]): صـحيح
-  فـهرس_مسطح.أنشئ(obj: سند[سند[فـهرس_مسطح]]، d: صـحيح[64]، metric: نـوع_قياس): صـحيح
-  ```
+#### أنشئ / new
+
+```
+فـهرس_مسطح.أنشئ(obj: سند[سند[فـهرس_مسطح]]): صـحيح
+فـهرس_مسطح.أنشئ(obj: سند[سند[فـهرس_مسطح]]، d: صـحيح[64]، metric: نـوع_قياس): صـحيح
+```
 
 <div dir=ltr>
 
-  ```alusus
-  IndexFlat.new(obj: ref[ref[IndexFlat]]): Int
-  IndexFlat.new(obj: ref[ref[IndexFlat]], d: Int[64], metric: MetricType): Int
-  ```
+```
+func IndexFlat.new(obj: ref[ref[IndexFlat]]): Int
+func IndexFlat.new(obj: ref[ref[IndexFlat]], d: Int[64], metric: MetricType): Int
+```
 
 </div>
 
-**دوال إضافية:**
-- `هات_البيانات` / `getXb`
-  ```alusus
-  فـهرس_مسطح.هات_البيانات(outXb: سند[سند[مصفوفة[عـائم]]]، outSize: سند[كلمة_معمارية])
-  ```
+#### هات_البيانات / getXb
+
+```
+فـهرس_مسطح.هات_البيانات(outXb: سند[سند[مصفوفة[عـائم]]]، outSize: سند[كلمة_معمارية])
+```
 
 <div dir=ltr>
 
-  ```alusus
-  IndexFlat.getXb(outXb: ref[ref[array[Float]]], outSize: ref[ArchWord])
-  ```
+```
+func indexFlat.getXb(outXb: ref[ref[array[Float]]], outSize: ref[ArchWord])
+```
 
 </div>
 
-  الحصول على المتجهات المخزنة
+الحصول على المتجهات المخزنة.
 
-- `احسب_مسافة_مجموعة_جزئية` / `computeDistanceSubset`
-  ```alusus
-  فـهرس_مسطح.احسب_مسافة_مجموعة_جزئية(n: صـحيح[64]، x: سند[مصفوفة[عـائم]]، k: صـحيح[64]،
-   outDistances: سند[مصفوفة[عـائم]]، labels: سند[مصفوفة[صـحيح[64]]]): صـحيح
-  ```
+#### احسب_مسافة_مجموعة_جزئية / computeDistanceSubset
+
+```
+فـهرس_مسطح.احسب_مسافة_مجموعة_جزئية(n: صـحيح[64]، x: سند[مصفوفة[عـائم]]، k: صـحيح[64]،
+ outDistances: سند[مصفوفة[عـائم]]، labels: سند[مصفوفة[صـحيح[64]]]): صـحيح
+```
 
 <div dir=ltr>
 
-  ```alusus
-  IndexFlat.computeDistanceSubset(n: Int[64], x: ref[array[Float]], k: Int[64],
-   outDistances: ref[array[Float]], labels: ref[array[Int[64]]]): Int
-  ```
+```
+func indexFlat.computeDistanceSubset(n: Int[64], x: ref[array[Float]], k: Int[64], outDistances: ref[array[Float]], labels: ref[array[Int[64]]]): Int
+```
 
 </div>
 
-  حساب المسافات إلى مجموعة جزئية
+حساب المسافات إلى مجموعة جزئية.
 
 يرث جميع دوال فـهرس / Index.
 
-#### فـهرس_مسطح_آيبي / IndexFlatIp
+### فـهرس_مسطح_آيبي / IndexFlatIp
+
 فهرس مسطح متخصص لمقياس الجداء الداخلي. [توثيق](https://github.com/facebookresearch/faiss/wiki/MetricType-and-distances)
 
-**الإنشاء:**
-- `أنشئ` / `new`
-  ```alusus
-  فـهرس_مسطح_آيبي.أنشئ(obj: سند[سند[فـهرس_مسطح_آيبي]]): صـحيح
-  فـهرس_مسطح_آيبي.أنشئ(obj: سند[سند[فـهرس_مسطح_آيبي]]، d: صـحيح[64]): صـحيح
-  ```
+#### أنشئ / new
+
+```
+فـهرس_مسطح_آيبي.أنشئ(obj: سند[سند[فـهرس_مسطح_آيبي]]): صـحيح
+فـهرس_مسطح_آيبي.أنشئ(obj: سند[سند[فـهرس_مسطح_آيبي]]، d: صـحيح[64]): صـحيح
+```
 
 <div dir=ltr>
 
-  ```alusus
-  IndexFlatIp.new(obj: ref[ref[IndexFlatIp]]): Int
-  IndexFlatIp.new(obj: ref[ref[IndexFlatIp]], d: Int[64]): Int
-  ```
+```
+func IndexFlatIp.new(obj: ref[ref[IndexFlatIp]]): Int
+func IndexFlatIp.new(obj: ref[ref[IndexFlatIp]], d: Int[64]): Int
+```
 
 </div>
 
-#### فـهرس_مسطح_ل2 / IndexFlatL2
+### فـهرس_مسطح_ل2 / IndexFlatL2
+
 فهرس مسطح متخصص لمسافة L2 (إقليدس). [توثيق](https://github.com/facebookresearch/faiss/wiki/MetricType-and-distances)
 
-**الإنشاء:**
-- `أنشئ` / `new`
-  ```alusus
-  فـهرس_مسطح_ل2.أنشئ(obj: سند[سند[فـهرس_مسطح_ل2]]): صـحيح
-  فـهرس_مسطح_ل2.أنشئ(obj: سند[سند[فـهرس_مسطح_ل2]]، d: صـحيح[64]): صـحيح
-  ```
+#### أنشئ / new
+
+```
+فـهرس_مسطح_ل2.أنشئ(obj: سند[سند[فـهرس_مسطح_ل2]]): صـحيح
+فـهرس_مسطح_ل2.أنشئ(obj: سند[سند[فـهرس_مسطح_ل2]]، d: صـحيح[64]): صـحيح
+```
 
 <div dir=ltr>
 
-  ```alusus
-  IndexFlatL2.new(obj: ref[ref[IndexFlatL2]]): Int
-  IndexFlatL2.new(obj: ref[ref[IndexFlatL2]], d: Int[64]): Int
-  ```
+```
+func IndexFlatL2.new(obj: ref[ref[IndexFlatL2]]): Int
+func IndexFlatL2.new(obj: ref[ref[IndexFlatL2]], d: Int[64]): Int
+```
 
 </div>
 
-#### فـهرس_ملف_معكوس / IndexIvf
+### فـهرس_ملف_معكوس / IndexIvf
+
 فهرس الملفات المعكوسة للبحث التقريبي الأسرع. [دليل](https://github.com/facebookresearch/faiss/wiki/Faiss-indexes#cell-probe-methods-indexivf-indexes)
 
-**خصائص إضافية:**
-- `عدد_القوائم` / `nList`: `كلمة_معمارية` - عدد القوائم المعكوسة (العناقيد)
-- `عدد_الاستقصاءات` / `nProbe`: `كلمة_معمارية` - عدد العناقيد المراد زيارتها أثناء البحث (قابل للضبط)
-- `المكمم` / `quantizer`: `سند[فـهرس]` - فهرس المكمم
-- `يمتلك_الحقول` / `ownFields`: `صحيح` - ما إذا كان الفهرس يمتلك حقوله
+#### عدد_القوائم / nList
 
-**دوال إضافية:**
-- `ادمج_من` / `mergeFrom`
-  ```alusus
-  فـهرس_ملف_معكوس.ادمج_من(other: سند[فـهرس_ملف_معكوس]، addId: صـحيح[64]): صـحيح
-  ```
+```
+عدد_القوائم: كلمة_معمارية
+```
 
 <div dir=ltr>
 
-  ```alusus
-  IndexIvf.mergeFrom(other: ref[IndexIvf], addId: Int[64]): Int
-  ```
+```
+indexIvf.nList: ArchWord
+```
 
 </div>
 
-  دمج فهرس IVF آخر
+عدد القوائم المعكوسة (العناقيد).
 
-- `انسخ_مجموعة_جزئية_إلى` / `copySubsetTo`
-  ```alusus
-  فـهرس_ملف_معكوس.انسخ_مجموعة_جزئية_إلى(other: سند[فـهرس_ملف_معكوس]، subsetType: صـحيح، a1: صـحيح[64]، a2: صـحيح[64]): صـحيح
-  ```
+#### عدد_الاستقصاءات / nProbe
+
+```
+عدد_الاستقصاءات: كلمة_معمارية
+```
 
 <div dir=ltr>
 
-  ```alusus
-  IndexIvf.copySubsetTo(other: ref[IndexIvf], subsetType: Int, a1: Int[64], a2: Int[64]): Int
-  ```
+```
+indexIvf.nProbe: ArchWord
+```
 
 </div>
 
-  نسخ مجموعة جزئية من المتجهات
+عدد العناقيد المراد زيارتها أثناء البحث (قابل للضبط).
 
-- `هات_حجم_القائمة` / `getListSize`
-  ```alusus
-  فـهرس_ملف_معكوس.هات_حجم_القائمة(listNo: كلمة_معمارية): كلمة_معمارية
-  ```
+#### المكمم / quantizer
+
+```
+المكمم: سند[فـهرس]
+```
 
 <div dir=ltr>
 
-  ```alusus
-  IndexIvf.getListSize(listNo: ArchWord): ArchWord
-  ```
+```
+indexIvf.quantizer: ref[Index]
+```
 
 </div>
 
-  الحصول على حجم القائمة المعكوسة
+فهرس المكمم.
 
-- `اصنع_تعيينا_مباشرا` / `makeDirectMap`
-  ```alusus
-  فـهرس_ملف_معكوس.اصنع_تعيينا_مباشرا(newMaintainDirectMap: صـحيح): صـحيح
-  ```
+#### يمتلك_الحقول / ownFields
+
+```
+يمتلك_الحقول: صحيح
+```
 
 <div dir=ltr>
 
-  ```alusus
-  IndexIvf.makeDirectMap(newMaintainDirectMap: Int): Int
-  ```
+```
+indexIvf.ownFields: Int
+```
 
 </div>
 
-  إنشاء خريطة مباشرة لإعادة البناء
+ما إذا كان الفهرس يمتلك حقوله.
 
-- `عامل_عدم_التوازن` / `imbalanceFactor`: `عـائم[64]` - الحصول على عامل عدم توازن العناقيد
-- `اطبع_الإحصائيات` / `printStats`: `()` - طباعة إحصائيات الفهرس
+#### ادمج_من / mergeFrom
 
-#### فـهرس_ثنائي / IndexBinary
+```
+فـهرس_ملف_معكوس.ادمج_من(other: سند[فـهرس_ملف_معكوس]، addId: صـحيح[64]): صـحيح
+```
+
+<div dir=ltr>
+
+```
+func indexIvf.mergeFrom(other: ref[IndexIvf], addId: Int[64]): Int
+```
+
+</div>
+
+دمج فهرس IVF آخر.
+
+#### انسخ_مجموعة_جزئية_إلى / copySubsetTo
+
+```
+فـهرس_ملف_معكوس.انسخ_مجموعة_جزئية_إلى(other: سند[فـهرس_ملف_معكوس]، subsetType: صـحيح، a1: صـحيح[64]، a2: صـحيح[64]): صـحيح
+```
+
+<div dir=ltr>
+
+```
+func indexIvf.copySubsetTo(other: ref[IndexIvf], subsetType: Int, a1: Int[64], a2: Int[64]): Int
+```
+
+</div>
+
+نسخ مجموعة جزئية من المتجهات.
+
+#### هات_حجم_القائمة / getListSize
+
+```
+فـهرس_ملف_معكوس.هات_حجم_القائمة(listNo: كلمة_معمارية): كلمة_معمارية
+```
+
+<div dir=ltr>
+
+```
+func indexIvf.getListSize(listNo: ArchWord): ArchWord
+```
+
+</div>
+
+الحصول على حجم القائمة المعكوسة.
+
+#### اصنع_تعيينا_مباشرا / makeDirectMap
+
+```
+فـهرس_ملف_معكوس.اصنع_تعيينا_مباشرا(newMaintainDirectMap: صـحيح): صـحيح
+```
+
+<div dir=ltr>
+
+```
+func indexIvf.makeDirectMap(newMaintainDirectMap: Int): Int
+```
+
+</div>
+
+إنشاء خريطة مباشرة لإعادة البناء.
+
+#### عامل_عدم_التوازن / imbalanceFactor
+
+```
+عامل_عدم_التوازن: عـائم[64]
+```
+
+<div dir=ltr>
+
+```
+indexIvf.imbalanceFactor: Float[64]
+```
+
+</div>
+
+الحصول على عامل عدم توازن العناقيد.
+
+#### اطبع_الإحصائيات / printStats
+
+```
+فـهرس_ملف_معكوس.اطبع_الإحصائيات()
+```
+
+<div dir=ltr>
+
+```
+func indexIvf.printStats()
+```
+
+</div>
+
+طباعة إحصائيات الفهرس.
+
+### فـهرس_ثنائي / IndexBinary
+
 فهرس للمتجهات الثنائية (هامينغ). [دليل](https://github.com/facebookresearch/faiss/wiki/Binary-indexes)
 
 مشابه لـ فـهرس / Index ولكنه يعمل على المتجهات الثنائية (مصفوفات Word[8] بدلاً من Float).
 
-### الأصناف الداعمة
+### فـضاء_وسيط / ParameterSpace
 
-#### فـضاء_وسيط / ParameterSpace
 إدارة معاملات الفهرس للبحث الشبكي والضبط. [واجهة C البرمجية](https://github.com/facebookresearch/faiss/blob/main/c_api/ParameterSpace_c.h)
 
-**الدوال:**
-- `أنشئ` / `new`
-  ```alusus
-  فـضاء_وسيط.أنشئ(parameterSpace: سند[سند[فـضاء_وسيط]]): صـحيح
-  ```
+#### أنشئ / new
+
+```
+فـضاء_وسيط.أنشئ(parameterSpace: سند[سند[فـضاء_وسيط]]): صـحيح
+```
 
 <div dir=ltr>
 
-  ```alusus
-  ParameterSpace.new(parameterSpace: ref[ref[ParameterSpace]]): Int
-  ```
+```
+func ParameterSpace.new(parameterSpace: ref[ref[ParameterSpace]]): Int
+```
 
 </div>
 
-- `حدد_وسيط_فهرس` / `setIndexParameter`
-  ```alusus
-  فـضاء_وسيط.حدد_وسيط_فهرس(index: سند[فـهرس]، paramName: مـؤشر_محارف، val: عـائم[64]): صـحيح
-  ```
+#### حدد_وسيط_فهرس / setIndexParameter
+
+```
+فـضاء_وسيط.حدد_وسيط_فهرس(index: سند[فـهرس]، paramName: مـؤشر_محارف، val: عـائم[64]): صـحيح
+```
 
 <div dir=ltr>
 
-  ```alusus
-  ParameterSpace.setIndexParameter(index: ref[Index], paramName: CharsPtr, val: Float[64]): Int
-  ```
+```
+func parameterSpace.setIndexParameter(index: ref[Index], paramName: CharsPtr, val: Float[64]): Int
+```
 
 </div>
 
-  تعيين معامل واحد
+تعيين معامل واحد.
 
-- `حدد_وسطاء_فهرس` / `setIndexParameters`
-  ```alusus
-  فـضاء_وسيط.حدد_وسطاء_فهرس(index: سند[فـهرس]، params: مـؤشر_محارف): صـحيح
-  ```
+#### حدد_وسطاء_فهرس / setIndexParameters
+
+```
+فـضاء_وسيط.حدد_وسطاء_فهرس(index: سند[فـهرس]، params: مـؤشر_محارف): صـحيح
+```
 
 <div dir=ltr>
 
-  ```alusus
-  ParameterSpace.setIndexParameters(index: ref[Index], params: CharsPtr): Int
-  ```
+```
+func parameterSpace.setIndexParameters(index: ref[Index], params: CharsPtr): Int
+```
 
 </div>
 
-  تعيين معاملات متعددة
+تعيين معاملات متعددة.
 
-- `أضف_مدى` / `addRange`
-  ```alusus
-  فـضاء_وسيط.أضف_مدى(name: مـؤشر_محارف، outRange: سند[سند[مـدى_وسيط]]): صـحيح
-  ```
+#### أضف_مدى / addRange
+
+```
+فـضاء_وسيط.أضف_مدى(name: مـؤشر_محارف، outRange: سند[سند[مـدى_وسيط]]): صـحيح
+```
 
 <div dir=ltr>
 
-  ```alusus
-  ParameterSpace.addRange(name: CharsPtr, outRange: ref[ref[ParameterRange]]): Int
-  ```
+```
+func parameterSpace.addRange(name: CharsPtr, outRange: ref[ref[ParameterRange]]): Int
+```
 
 </div>
 
-  إضافة نطاق معامل
+إضافة نطاق معامل.
 
-#### وسـطاء_بحث / SearchParameters
+### وسـطاء_بحث / SearchParameters
+
 معاملات البحث في وقت التشغيل. [واجهة C البرمجية](https://github.com/facebookresearch/faiss/blob/main/c_api/Index_c.h)
 
-**الدوال:**
-- `أنشئ` / `new`
-  ```alusus
-  وسـطاء_بحث.أنشئ(obj: سند[سند[وسـطاء_بحث]]، sel: سند[مـنتقي_معرف]): صـحيح
-  ```
+#### أنشئ / new
+
+```
+وسـطاء_بحث.أنشئ(obj: سند[سند[وسـطاء_بحث]]، sel: سند[مـنتقي_معرف]): صـحيح
+```
 
 <div dir=ltr>
 
-  ```alusus
-  SearchParameters.new(obj: ref[ref[SearchParameters]], sel: ref[IdSelector]): Int
-  ```
+```
+func SearchParameters.new(obj: ref[ref[SearchParameters]], sel: ref[IdSelector]): Int
+```
 
 </div>
 
-- `عدد_الاستقصاءات` / `nProbe`: `صحيح` - عدد العناقيد المراد استقصاءها (لفهارس IVF)
+#### عدد_الاستقصاءات / nProbe
 
-#### وسـطاء_بحث_ملف_معكوس / SearchParametersIvf
+```
+عدد_الاستقصاءات: صحيح
+```
+
+<div dir=ltr>
+
+```
+searchParameters.nProbe: Int
+```
+
+</div>
+
+عدد العناقيد المراد استقصاءها (لفهارس IVF).
+
+### وسـطاء_بحث_ملف_معكوس / SearchParametersIvf
+
 معاملات بحث موسعة لفهارس IVF.
 
-**الدوال:**
-- `أنشئ` / `new`
-  ```alusus
-  وسـطاء_بحث_ملف_معكوس.أنشئ(obj: سند[سند[وسـطاء_بحث_ملف_معكوس]]): صـحيح
-  وسـطاء_بحث_ملف_معكوس.أنشئ(obj: سند[سند[وسـطاء_بحث_ملف_معكوس]]، sel: سند[مـنتقي_معرف]،
-   nprobe: كلمة_معمارية، maxCodes: كلمة_معمارية): صـحيح
-  ```
+#### أنشئ / new
+
+```
+وسـطاء_بحث_ملف_معكوس.أنشئ(obj: سند[سند[وسـطاء_بحث_ملف_معكوس]]): صـحيح
+وسـطاء_بحث_ملف_معكوس.أنشئ(obj: سند[سند[وسـطاء_بحث_ملف_معكوس]]، sel: سند[مـنتقي_معرف]،
+ nprobe: كلمة_معمارية، maxCodes: كلمة_معمارية): صـحيح
+```
 
 <div dir=ltr>
 
-  ```alusus
-  SearchParametersIvf.new(obj: ref[ref[SearchParametersIvf]]): Int
-  SearchParametersIvf.new(obj: ref[ref[SearchParametersIvf]], sel: ref[IdSelector],
-   nprobe: ArchWord, maxCodes: ArchWord): Int
-  ```
+```
+func SearchParametersIvf.new(obj: ref[ref[SearchParametersIvf]]): Int
+func SearchParametersIvf.new(obj: ref[ref[SearchParametersIvf]], sel: ref[IdSelector], nprobe: ArchWord, maxCodes: ArchWord): Int
+```
 
 </div>
 
-**الخصائص:**
-- `المنتقي` / `sel`: `سند[مـنتقي_معرف]` - منتقي المعرف
-- `عدد_الاستقصاءات` / `nProbe`: `كلمة_معمارية` - عدد العناقيد المراد استقصاءها
-- `أقصى_شفرات` / `maxCodes`: `كلمة_معمارية` - الحد الأقصى للشفرات المراد فحصها
+#### المنتقي / sel
 
-#### تـجميع / Clustering
+```
+المنتقي: سند[مـنتقي_معرف]
+```
+
+<div dir=ltr>
+
+```
+searchParametersIvf.sel: ref[IdSelector]
+```
+
+</div>
+
+منتقي المعرف.
+
+#### عدد_الاستقصاءات / nProbe
+
+```
+عدد_الاستقصاءات: كلمة_معمارية
+```
+
+<div dir=ltr>
+
+```
+searchParametersIvf.nProbe: ArchWord
+```
+
+</div>
+
+عدد العناقيد المراد استقصاءها.
+
+#### أقصى_شفرات / maxCodes
+
+```
+أقصى_شفرات: كلمة_معمارية
+```
+
+<div dir=ltr>
+
+```
+searchParametersIvf.maxCodes: ArchWord
+```
+
+</div>
+
+الحد الأقصى للشفرات المراد فحصها.
+
+### تـجميع / Clustering
+
 تطبيق تجميع K-means. [واجهة C البرمجية](https://github.com/facebookresearch/faiss/blob/main/c_api/Clustering_c.h)
 
-**الإنشاء:**
-- `أنشئ` / `new`
-  ```alusus
-  تـجميع.أنشئ(out: سند[سند[تـجميع]]، d: صـحيح، k: صـحيح): صـحيح
-  تـجميع.أنشئ(out: سند[سند[تـجميع]]، d: صـحيح، k: صـحيح، params: مؤشر[وسـطاء_تجميع]): صـحيح
-  ```
+#### أنشئ / new
+
+```
+تـجميع.أنشئ(out: سند[سند[تـجميع]]، d: صـحيح، k: صـحيح): صـحيح
+تـجميع.أنشئ(out: سند[سند[تـجميع]]، d: صـحيح، k: صـحيح، params: مؤشر[وسـطاء_تجميع]): صـحيح
+```
 
 <div dir=ltr>
 
-  ```alusus
-  Clustering.new(out: ref[ref[Clustering]], d: Int, k: Int): Int
-  Clustering.new(out: ref[ref[Clustering]], d: Int, k: Int, params: ptr[ClusteringParameters]): Int
-  ```
+```
+func Clustering.new(out: ref[ref[Clustering]], d: Int, k: Int): Int
+func Clustering.new(out: ref[ref[Clustering]], d: Int, k: Int, params: ptr[ClusteringParameters]): Int
+```
 
 </div>
 
-**الدوال:**
-- `درب` / `train`
-  ```alusus
-  تـجميع.درب(n: صـحيح[64]، x: سند[عـائم]، index: سند[فـهرس]): صـحيح
-  ```
+إنشاء بالبُعد وعدد العناقيد k. الصيغة الثانية تنشئ بمعاملات.
+
+#### درب / train
+
+```
+تـجميع.درب(n: صـحيح[64]، x: سند[عـائم]، index: سند[فـهرس]): صـحيح
+```
 
 <div dir=ltr>
 
-  ```alusus
-  Clustering.train(n: Int[64], x: ref[Float], index: ref[Index]): Int
-  ```
+```
+func clustering.train(n: Int[64], x: ref[Float], index: ref[Index]): Int
+```
 
 </div>
 
-  تشغيل k-means
+تشغيل k-means.
 
-- `هات_المراكز` / `getCentroids`
-  ```alusus
-  تـجميع.هات_المراكز(centroids: سند[سند[مصفوفة[عـائم]]]، size: سند[كلمة_معمارية])
-  ```
+#### هات_المراكز / getCentroids
+
+```
+تـجميع.هات_المراكز(centroids: سند[سند[مصفوفة[عـائم]]]، size: سند[كلمة_معمارية])
+```
 
 <div dir=ltr>
 
-  ```alusus
-  Clustering.getCentroids(centroids: ref[ref[array[Float]]], size: ref[ArchWord])
-  ```
+```
+func clustering.getCentroids(centroids: ref[ref[array[Float]]], size: ref[ArchWord])
+```
 
 </div>
 
-  الحصول على مراكز العناقيد
+الحصول على مراكز العناقيد.
 
-- `هات_إحصائيات_الدورة` / `getIterationStats`
-  ```alusus
-  تـجميع.هات_إحصائيات_الدورة(stats_out: سند[سند[إحـصائيات_دورة_تجميع]]، size: سند[كلمة_معمارية])
-  ```
+#### هات_إحصائيات_الدورة / getIterationStats
+
+```
+تـجميع.هات_إحصائيات_الدورة(stats_out: سند[سند[إحـصائيات_دورة_تجميع]]، size: سند[كلمة_معمارية])
+```
 
 <div dir=ltr>
 
-  ```alusus
-  Clustering.getIterationStats(stats_out: ref[ref[ClusteringIterationStats]], size: ref[ArchWord])
-  ```
+```
+func clustering.getIterationStats(stats_out: ref[ref[ClusteringIterationStats]], size: ref[ArchWord])
+```
 
 </div>
 
-  الحصول على إحصائيات التكرار
+الحصول على إحصائيات التكرار.
 
-**الخصائص:**
-- `عدد_الدورات` / `niter`: `صحيح` - عدد التكرارات
-- `عدد_الإعادات` / `nredo`: `صحيح` - عدد إعادات k-means
-- `عدد_المراكز` / `k`: `كلمة_معمارية` - عدد العناقيد
-- `البعد` / `d`: `كلمة_معمارية` - بُعد المتجه
+#### عدد_الدورات / niter
 
-#### مـنتقي_معرف / IdSelector
+```
+عدد_الدورات: صحيح
+```
+
+<div dir=ltr>
+
+```
+clustering.niter: Int
+```
+
+</div>
+
+عدد التكرارات.
+
+#### عدد_الإعادات / nredo
+
+```
+عدد_الإعادات: صحيح
+```
+
+<div dir=ltr>
+
+```
+clustering.nredo: Int
+```
+
+</div>
+
+عدد إعادات k-means.
+
+#### عدد_المراكز / k
+
+```
+عدد_المراكز: كلمة_معمارية
+```
+
+<div dir=ltr>
+
+```
+clustering.k: ArchWord
+```
+
+</div>
+
+عدد العناقيد.
+
+#### البعد / d
+
+```
+البعد: كلمة_معمارية
+```
+
+<div dir=ltr>
+
+```
+clustering.d: ArchWord
+```
+
+</div>
+
+بُعد المتجه.
+
+### مـنتقي_معرف / IdSelector
+
 اختيار مجموعات فرعية من المتجهات حسب المعرف. [واجهة C البرمجية](https://github.com/facebookresearch/faiss/blob/main/c_api/Index_c.h)
 
-**الأنواع:**
-- `مـنتقي_معرف_حزمة` / `IdSelectorBatch` - اختيار معرفات محددة من قائمة
-- `مـنتقي_معرف_مدى` / `IdSelectorRange` - اختيار المعرفات في نطاق
-- `مـنتقي_معرف_بتماب` / `IdSelectorBitmap` - الاختيار باستخدام خريطة بت
-- `مـنتقي_معرف_نفي` / `IdSelectorNot` - عكس منتقي
-- `مـنتقي_معرف_و` / `IdSelectorAnd` - دمج المنتقيات بـ AND
-- `مـنتقي_معرف_أو` / `IdSelectorOr` - دمج المنتقيات بـ OR
-- `مـنتقي_معرف_أو_حصري` / `IdSelectorXor` - دمج المنتقيات بـ XOR
+الأنواع:
+* `مـنتقي_معرف_حزمة` / `IdSelectorBatch`: اختيار معرفات محددة من قائمة
+* `مـنتقي_معرف_مدى` / `IdSelectorRange`: اختيار المعرفات في نطاق
+* `مـنتقي_معرف_بتماب` / `IdSelectorBitmap`: الاختيار باستخدام خريطة بت
+* `مـنتقي_معرف_نفي` / `IdSelectorNot`: عكس منتقي
+* `مـنتقي_معرف_و` / `IdSelectorAnd`: دمج المنتقيات بـ AND
+* `مـنتقي_معرف_أو` / `IdSelectorOr`: دمج المنتقيات بـ OR
+* `مـنتقي_معرف_أو_حصري` / `IdSelectorXor`: دمج المنتقيات بـ XOR
 
-#### نـتيجة_بحث_مدى / RangeSearchResult
+### نـتيجة_بحث_مدى / RangeSearchResult
+
 نتائج استعلامات البحث بنطاق. [واجهة C البرمجية](https://github.com/facebookresearch/faiss/blob/main/c_api/Index_c.h)
 
-**الدوال:**
-- `أنشئ` / `new`
-  ```alusus
-  نـتيجة_بحث_مدى.أنشئ(obj: سند[سند[نـتيجة_بحث_مدى]]، nq: صـحيح[64]): صـحيح
-  ```
+#### أنشئ / new
+
+```
+نـتيجة_بحث_مدى.أنشئ(obj: سند[سند[نـتيجة_بحث_مدى]]، nq: صـحيح[64]): صـحيح
+```
 
 <div dir=ltr>
 
-  ```alusus
-  RangeSearchResult.new(obj: ref[ref[RangeSearchResult]], nq: Int[64]): Int
-  ```
+```
+func RangeSearchResult.new(obj: ref[ref[RangeSearchResult]], nq: Int[64]): Int
+```
 
 </div>
 
-- `نفذ_التخصيص` / `doAllocation`
-  ```alusus
-  نـتيجة_بحث_مدى.نفذ_التخصيص(): صـحيح
-  ```
+#### نفذ_التخصيص / doAllocation
+
+```
+نـتيجة_بحث_مدى.نفذ_التخصيص(): صـحيح
+```
 
 <div dir=ltr>
 
-  ```alusus
-  RangeSearchResult.doAllocation(): Int
-  ```
+```
+func rangeSearchResult.doAllocation(): Int
+```
 
 </div>
 
-  تخصيص صوانات النتائج
+تخصيص صوانات النتائج.
 
-- `حجم_الصوان` / `bufferSize`
-  ```alusus
-  نـتيجة_بحث_مدى.حجم_الصوان(): كلمة_معمارية
-  ```
+#### حجم_الصوان / bufferSize
+
+```
+نـتيجة_بحث_مدى.حجم_الصوان(): كلمة_معمارية
+```
 
 <div dir=ltr>
 
-  ```alusus
-  RangeSearchResult.bufferSize(): ArchWord
-  ```
+```
+func rangeSearchResult.bufferSize(): ArchWord
+```
 
 </div>
 
-  الحصول على حجم الصوان
+الحصول على حجم الصوان.
 
-- `هات_الحدود` / `getLims`
-  ```alusus
-  نـتيجة_بحث_مدى.هات_الحدود(outLims: سند[سند[مصفوفة[كلمة_معمارية]]])
-  ```
+#### هات_الحدود / getLims
+
+```
+نـتيجة_بحث_مدى.هات_الحدود(outLims: سند[سند[مصفوفة[كلمة_معمارية]]])
+```
 
 <div dir=ltr>
 
-  ```alusus
-  RangeSearchResult.getLims(outLims: ref[ref[array[ArchWord]]])
-  ```
+```
+func rangeSearchResult.getLims(outLims: ref[ref[array[ArchWord]]])
+```
 
 </div>
 
-  الحصول على مصفوفة حدود النتائج
+الحصول على مصفوفة حدود النتائج.
 
-- `هات_الوسوم` / `getLabels`
-  ```alusus
-  نـتيجة_بحث_مدى.هات_الوسوم(outLabels: سند[سند[مصفوفة[صـحيح[64]]]]، outDistances: سند[سند[سند[عـائم]]])
-  ```
+#### هات_الوسوم / getLabels
+
+```
+نـتيجة_بحث_مدى.هات_الوسوم(outLabels: سند[سند[مصفوفة[صـحيح[64]]]]، outDistances: سند[سند[سند[عـائم]]])
+```
 
 <div dir=ltr>
 
-  ```alusus
-  RangeSearchResult.getLabels(outLabels: ref[ref[array[Int[64]]]], outDistances: ref[ref[ref[Float]]])
-  ```
+```
+func rangeSearchResult.getLabels(outLabels: ref[ref[array[Int[64]]]], outDistances: ref[ref[ref[Float]]])
+```
 
 </div>
 
-  الحصول على الوسوم والمسافات
+الحصول على الوسوم والمسافات.
 
-#### حـاسب_مسافة / DistanceComputer
+### حـاسب_مسافة / DistanceComputer
+
 حساب المسافات إلى المتجهات. [واجهة C البرمجية](https://github.com/facebookresearch/faiss/blob/main/c_api/Index_c.h)
 
-**الدوال:**
-- `حدد_الاستعلام` / `setQuery`
-  ```alusus
-  حـاسب_مسافة.حدد_الاستعلام(x: سند[مصفوفة[عـائم]]): صـحيح
-  ```
+#### حدد_الاستعلام / setQuery
+
+```
+حـاسب_مسافة.حدد_الاستعلام(x: سند[مصفوفة[عـائم]]): صـحيح
+```
 
 <div dir=ltr>
 
-  ```alusus
-  DistanceComputer.setQuery(x: ref[array[Float]]): Int
-  ```
+```
+func distanceComputer.setQuery(x: ref[array[Float]]): Int
+```
 
 </div>
 
-  تعيين متجه الاستعلام
+تعيين متجه الاستعلام.
 
-- `مسافة_متجه_للاستعلام` / `vectorToQueryDis`
-  ```alusus
-  حـاسب_مسافة.مسافة_متجه_للاستعلام(i: صـحيح[64]، qd: سند[مصفوفة[عـائم]]): صـحيح
-  ```
+#### مسافة_متجه_للاستعلام / vectorToQueryDis
+
+```
+حـاسب_مسافة.مسافة_متجه_للاستعلام(i: صـحيح[64]، qd: سند[مصفوفة[عـائم]]): صـحيح
+```
 
 <div dir=ltr>
 
-  ```alusus
-  DistanceComputer.vectorToQueryDis(i: Int[64], qd: ref[array[Float]]): Int
-  ```
+```
+func distanceComputer.vectorToQueryDis(i: Int[64], qd: ref[array[Float]]): Int
+```
 
 </div>
 
-  المسافة إلى الاستعلام
+المسافة إلى الاستعلام.
 
-- `مسافة_متماثلة` / `symmetricDis`
-  ```alusus
-  حـاسب_مسافة.مسافة_متماثلة(i: صـحيح[64]، j: صـحيح[64]، vd: سند[مصفوفة[عـائم]]): صـحيح
-  ```
+#### مسافة_متماثلة / symmetricDis
+
+```
+حـاسب_مسافة.مسافة_متماثلة(i: صـحيح[64]، j: صـحيح[64]، vd: سند[مصفوفة[عـائم]]): صـحيح
+```
 
 <div dir=ltr>
 
-  ```alusus
-  DistanceComputer.symmetricDis(i: Int[64], j: Int[64], vd: ref[array[Float]]): Int
-  ```
+```
+func distanceComputer.symmetricDis(i: Int[64], j: Int[64], vd: ref[array[Float]]): Int
+```
 
 </div>
 
-  المسافة المتماثلة
+المسافة المتماثلة.
 
 ### الثوابت
 
 #### نـوع_قياس / MetricType
+
 مقاييس المسافة. [توثيق](https://github.com/facebookresearch/faiss/wiki/MetricType-and-distances)
 
-- `_نتاج_داخلي_` / `METRIC_INNER_PRODUCT`: `0` - الجداء الداخلي (أقصى تشابه)
-- `_ل2_` / `METRIC_L2`: `1` - المسافة الإقليدية (معيار L2)
-- `_ل1_` / `METRIC_L1`: `2` - مسافة مانهاتن (معيار L1)
-- `_ل8_` / `METRIC_LINF`: `3` - معيار اللانهاية (مسافة تشيبيشيف)
-- `_لس_` / `METRIC_LP`: `4` - معيار Lp
-- `_كانبيرا_` / `METRIC_CANBERRA`: `20` - مسافة كانبيرا
-- `_براي_كرتس_` / `METRIC_BRAY_CURTIS`: `21` - تباين براي-كورتس
-- `_جنسن_شانون_` / `METRIC_JENSEN_SHANNON`: `22` - تباعد جينسن-شانون
+* `_نتاج_داخلي_` / `METRIC_INNER_PRODUCT` (`0`): الجداء الداخلي (أقصى تشابه)
+* `_ل2_` / `METRIC_L2` (`1`): المسافة الإقليدية (معيار L2)
+* `_ل1_` / `METRIC_L1` (`2`): مسافة مانهاتن (معيار L1)
+* `_ل8_` / `METRIC_LINF` (`3`): معيار اللانهاية (مسافة تشيبيشيف)
+* `_لس_` / `METRIC_LP` (`4`): معيار Lp
+* `_كانبيرا_` / `METRIC_CANBERRA` (`20`): مسافة كانبيرا
+* `_براي_كرتس_` / `METRIC_BRAY_CURTIS` (`21`): تباين براي-كورتس
+* `_جنسن_شانون_` / `METRIC_JENSEN_SHANNON` (`22`): تباعد جينسن-شانون
 
 #### رمـز_خطأ / ErrorCode
+
 رموز الإرجاع من دوال واجهة C البرمجية.
 
-- `_نجاح_` / `OK`: `0` - نجاح
-- `_استثناء_مجهول_` / `UNKNOWN_EXCEPT`: `-1` - استثناء غير معروف
-- `_استثناء_فيس_` / `FAISS_EXCEPT`: `-2` - استثناء FAISS
-- `_استثناء_قياسي_` / `STD_EXCEPT`: `-4` - استثناء المكتبة القياسية
+* `_نجاح_` / `OK` (`0`): نجاح
+* `_استثناء_مجهول_` / `UNKNOWN_EXCEPT` (`-1`): استثناء غير معروف
+* `_استثناء_فيس_` / `FAISS_EXCEPT` (`-2`): استثناء FAISS
+* `_استثناء_قياسي_` / `STD_EXCEPT` (`-4`): استثناء المكتبة القياسية
 
 ### الدوال
 
-- `هات_آخر_خطأ` / `getLastError`
-  ```alusus
-  فـيس.هات_آخر_خطأ(): مـؤشر_محارف
-  ```
+#### هات_آخر_خطأ / getLastError
+
+```
+فـيس.هات_آخر_خطأ(): مـؤشر_محارف
+```
 
 <div dir=ltr>
 
-  ```alusus
-  Faiss.getLastError(): CharsPtr
-  ```
+```
+func getLastError(): CharsPtr
+```
 
 </div>
 
-  الحصول على رسالة الخطأ الأخيرة
+الحصول على رسالة الخطأ الأخيرة.
 
-- `تجميع_كيمينز` / `kmeansClustering`
-  ```alusus
-  فـيس.تجميع_كيمينز(d: كلمة_معمارية، n: كلمة_معمارية، k: كلمة_معمارية،
-   x: سند[مصفوفة[عـائم]]، centroids: سند[مصفوفة[عـائم]]، q_error: سند[عـائم]): صـحيح
-  ```
+#### تجميع_كيمينز / kmeansClustering
+
+```
+فـيس.تجميع_كيمينز(d: كلمة_معمارية، n: كلمة_معمارية، k: كلمة_معمارية،
+ x: سند[مصفوفة[عـائم]]، centroids: سند[مصفوفة[عـائم]]، q_error: سند[عـائم]): صـحيح
+```
 
 <div dir=ltr>
 
-  ```alusus
-  Faiss.kmeansClustering(d: ArchWord, n: ArchWord, k: ArchWord,
-   x: ref[array[Float]], centroids: ref[array[Float]], q_error: ref[Float]): Int
-  ```
+```
+func kmeansClustering(d: ArchWord, n: ArchWord, k: ArchWord, x: ref[array[Float]], centroids: ref[array[Float]], q_error: ref[Float]): Int
+```
 
 </div>
 
-  k-means مستقل
+k-means مستقل.
 
 ## دعم GPU
 
 لتفعيل تسريع GPU، قم بتعيين متغير البيئة قبل التشغيل:
-```bash
+```
 export FAISS_USE_GPU=1
 ```
 
@@ -830,13 +1136,13 @@ export FAISS_USE_GPU=1
 
 ## نصوص مصنع الفهرس
 
-تقبل دالة المصنع `أنشئ` / `new` نصوصاً لإنشاء أنواع فهرس مختلفة:
+تقبل دالة المصنع `فـهرس.أنشئ` / `Index.new` نصوصاً لإنشاء أنواع فهرس مختلفة:
 
-- `"Flat"` - بحث دقيق (قوة غاشمة)
-- `"IVFn,Flat"` - IVF مع n مركز، ترميز مسطح
-- `"IVFn,PQm"` - IVF مع n مركز، PQ مع m مكمّم فرعي
-- `"HNSW32"` - عالم صغير قابل للتنقل الهرمي مع 32 جار
-- `"IVFn,HNSW32"` - IVF و HNSW مدمجان
+* `"Flat"`: بحث دقيق (قوة غاشمة)
+* `"IVFn,Flat"`: IVF مع n مركز، ترميز مسطح
+* `"IVFn,PQm"`: IVF مع n مركز، PQ مع m مكمّم فرعي
+* `"HNSW32"`: عالم صغير قابل للتنقل الهرمي مع 32 جار
+* `"IVFn,HNSW32"`: IVF و HNSW مدمجان
 
 راجع [توثيق مصنع الفهرس](https://github.com/facebookresearch/faiss/wiki/The-index-factory) لجميع الخيارات والتوليفات المتاحة.
 
@@ -844,17 +1150,17 @@ export FAISS_USE_GPU=1
 
 أمثلة عمل كاملة في مجلد `Examples/`:
 
-- **مثال.أسس** - فهرس مسطح أساسي مع بحث الجداء الداخلي (عربي)
-- **مثال٢.أسس** - فهرس IVF مع ضبط المعاملات (عربي)
-- **example.alusus** - فهرس مسطح أساسي مع بحث الجداء الداخلي (إنجليزي)
-- **example2.alusus** - فهرس IVF مع ضبط المعاملات (إنجليزي)
+* **مثال.أسس**: فهرس مسطح أساسي مع بحث الجداء الداخلي (عربي)
+* **مثال٢.أسس**: فهرس IVF مع ضبط المعاملات (عربي)
+* **example.alusus**: فهرس مسطح أساسي مع بحث الجداء الداخلي (إنجليزي)
+* **example2.alusus**: فهرس IVF مع ضبط المعاملات (إنجليزي)
 
 ## نصائح الأداء
 
 1. **اختيار الفهرس**:
-   - استخدم `فـهرس_مسطح` / `IndexFlat` للبحث الدقيق في مجموعات البيانات <1 مليون متجه
-   - استخدم `فـهرس_ملف_معكوس` / `IndexIVF` للبحث التقريبي في مجموعات البيانات الأكبر
-   - راجع [دليل اختيار الفهرس](https://github.com/facebookresearch/faiss/wiki/Guidelines-to-choose-an-index)
+   * استخدم `فـهرس_مسطح` / `IndexFlat` للبحث الدقيق في مجموعات البيانات <1 مليون متجه
+   * استخدم `فـهرس_ملف_معكوس` / `IndexIVF` للبحث التقريبي في مجموعات البيانات الأكبر
+   * راجع [دليل اختيار الفهرس](https://github.com/facebookresearch/faiss/wiki/Guidelines-to-choose-an-index)
 
 2. **التدريب**: تتطلب فهارس IVF والفهارس التقريبية الأخرى التدريب قبل إضافة المتجهات
 
@@ -868,14 +1174,13 @@ export FAISS_USE_GPU=1
 
 ## موارد إضافية
 
-- **FAISS على GitHub**: https://github.com/facebookresearch/faiss
-- **ويكي FAISS**: https://github.com/facebookresearch/faiss/wiki
-- **ورقة بحثية**: [البحث عن التشابه بمليارات المقاييس مع GPUs](https://arxiv.org/abs/1702.08734)
-- **لغة الأسس**: https://alusus.org
+* **FAISS على GitHub**: https://github.com/facebookresearch/faiss
+* **ويكي FAISS**: https://github.com/facebookresearch/faiss/wiki
+* **ورقة بحثية**: [البحث عن التشابه بمليارات المقاييس مع GPUs](https://arxiv.org/abs/1702.08734)
+* **لغة الأسس**: https://alusus.org
 
 ## الترخيص
 
 تتبع هذه الروابط ترخيص FAISS (MIT). راجع ملف `LICENSE` للتفاصيل.
 
 </div>
-

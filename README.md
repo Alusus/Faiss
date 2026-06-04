@@ -2,18 +2,13 @@
 
 [[العربية]](README.ar.md)
 
-
 Alusus language bindings for the [FAISS library](https://github.com/facebookresearch/faiss) - A library for efficient similarity search and clustering of dense vectors.
 
 ## Overview
 
-
-
 This library provides Alusus bindings to FAISS, enabling high-performance vector similarity search and clustering operations in the Alusus programming language.
 
 ## Installation
-
-
 
 ```
 import "Apm";
@@ -22,8 +17,6 @@ use Faiss;
 ```
 
 ## Quick Start
-
-
 
 ```
 import "Srl/Console";
@@ -55,8 +48,6 @@ See complete examples in the `Examples/` directory.
 
 ## Documentation
 
-
-
 This library wraps the FAISS C API. For detailed documentation of concepts, algorithms, and best practices, please refer to the official FAISS documentation:
 
 * **Main Documentation**: https://github.com/facebookresearch/faiss/wiki
@@ -66,139 +57,147 @@ This library wraps the FAISS C API. For detailed documentation of concepts, algo
 
 ## API Reference
 
-
-
 ### Index
 
 Main index class for similarity search. [C API docs](https://github.com/facebookresearch/faiss/blob/main/c_api/Index_c.h)
 
+**Static methods:**
+
 #### new
 
 ```
-func Index.new(obj: ref[ref[Index]], d: Int, description: CharsPtr, metric: Int): Int
+func new(obj: ref[ref[Index]], d: Int, description: CharsPtr, metric: Int): Int
 ```
 Create index using factory string.
 
 #### load
 
 ```
-func Index.load(fname: CharsPtr, flags: Int, obj: ref[ref[Index]]): Int
+func load(fname: CharsPtr, flags: Int, obj: ref[ref[Index]]): Int
 ```
 Load index from a file.
 
 #### save
 
 ```
-func Index.save(obj: ref[Index], fname: CharsPtr): Int
+func save(obj: ref[Index], fname: CharsPtr): Int
 ```
 Save index to a file.
+
+#### free
+
+```
+func free(obj: ref[Index])
+```
+Free index memory.
+
+**Key methods:**
 
 #### train
 
 ```
-func index.train(n: Int[64], x: ref[array[Float]]): Int
+handler this.train(n: Int[64], x: ref[array[Float]]): Int
 ```
 Train the index on data.
 
 #### add
 
 ```
-func index.add(n: Int[64], x: ref[array[Float]]): Int
+handler this.add(n: Int[64], x: ref[array[Float]]): Int
 ```
 Add vectors to index.
 
 #### search
 
 ```
-func index.search(n: Int[64], x: ref[array[Float]], k: Int[64], distances: ref[array[Float]], labels: ref[array[Int[64]]]): Int
+handler this.search(n: Int[64], x: ref[array[Float]], k: Int[64], distances: ref[array[Float]], labels: ref[array[Int[64]]]): Int
 ```
 Search for k nearest neighbors.
 
 #### rangeSearch
 
 ```
-func index.rangeSearch(n: Int[64], x: ref[array[Float]], radius: Float, result: ref[RangeSearchResult]): Int
+handler this.rangeSearch(n: Int[64], x: ref[array[Float]], radius: Float, result: ref[RangeSearchResult]): Int
 ```
 Range search.
 
 #### reset
 
 ```
-func index.reset(): Int
+handler this.reset(): Int
 ```
 Remove all vectors from index.
 
 #### removeIds
 
 ```
-func index.removeIds(sel: ref[IdSelector], nRemoved: ref[ArchWord]): Int
+handler this.removeIds(sel: ref[IdSelector], nRemoved: ref[ArchWord]): Int
 ```
 Remove specific vectors.
+
+**Properties:**
 
 #### d
 
 ```
-index.d: Int[64]
+d: Int[64];
 ```
 Vector dimension.
 
 #### nTotal
 
 ```
-index.nTotal: Int[64]
+nTotal: Int[64]
 ```
 Total number of indexed vectors.
 
 #### isTrained
 
 ```
-index.isTrained: Int
+isTrained: Int
 ```
 Whether index is trained (0 or 1).
 
 #### metricType
 
 ```
-index.metricType: MetricType
+metricType: MetricType
 ```
 Distance metric being used.
 
 #### verbose
 
 ```
-index.verbose: Int
+verbose: Int
 ```
 Verbosity level.
-
-#### free
-
-```
-func Index.free(obj: ref[Index])
-```
-Free index memory.
 
 ### IndexFlat
 
 Brute-force index performing exact search. [Guide](https://github.com/facebookresearch/faiss/wiki/Faiss-indexes#flat-indexes)
 
+**Creation:**
+
 #### new
 
 ```
-func IndexFlat.new(obj: ref[ref[IndexFlat]]): Int
-func IndexFlat.new(obj: ref[ref[IndexFlat]], d: Int[64], metric: MetricType): Int
+func new(obj: ref[ref[IndexFlat]]): Int
+func new(obj: ref[ref[IndexFlat]], d: Int[64], metric: MetricType): Int
 ```
+
+**Additional methods:**
 
 #### getXb
 
 ```
-func indexFlat.getXb(outXb: ref[ref[array[Float]]], outSize: ref[ArchWord])
+handler this.getXb(outXb: ref[ref[array[Float]]], outSize: ref[ArchWord])
 ```
 Get stored vectors.
 
 #### computeDistanceSubset
 
 ```
-func indexFlat.computeDistanceSubset(n: Int[64], x: ref[array[Float]], k: Int[64], outDistances: ref[array[Float]], labels: ref[array[Int[64]]]): Int
+handler this.computeDistanceSubset(n: Int[64], x: ref[array[Float]], k: Int[64], outDistances: ref[array[Float]], labels: ref[array[Int[64]]]): Int
 ```
 Compute distances to subset.
 
@@ -208,11 +207,13 @@ Inherits all Index methods.
 
 Flat index specialized for inner product metric. [Docs](https://github.com/facebookresearch/faiss/wiki/MetricType-and-distances)
 
+**Creation:**
+
 #### new
 
 ```
-func IndexFlatIp.new(obj: ref[ref[IndexFlatIp]]): Int
-func IndexFlatIp.new(obj: ref[ref[IndexFlatIp]], d: Int[64]): Int
+func new(obj: ref[ref[IndexFlatIp]]): Int
+func new(obj: ref[ref[IndexFlatIp]], d: Int[64]): Int
 ```
 
 ### IndexFlatL2
@@ -220,6 +221,8 @@ func IndexFlatIp.new(obj: ref[ref[IndexFlatIp]], d: Int[64]): Int
 Flat index specialized for L2 (Euclidean) distance. [Docs](https://github.com/facebookresearch/faiss/wiki/MetricType-and-distances)
 
 #### new
+
+**Creation:**
 
 ```
 func IndexFlatL2.new(obj: ref[ref[IndexFlatL2]]): Int
@@ -230,73 +233,77 @@ func IndexFlatL2.new(obj: ref[ref[IndexFlatL2]], d: Int[64]): Int
 
 Inverted file index for faster approximate search. [Guide](https://github.com/facebookresearch/faiss/wiki/Faiss-indexes#cell-probe-methods-indexivf-indexes)
 
+**Additional properties:**
+
 #### nList
 
 ```
-indexIvf.nList: ArchWord
+nList: ArchWord
 ```
 Number of inverted lists (clusters).
 
 #### nProbe
 
 ```
-indexIvf.nProbe: ArchWord
+nProbe: ArchWord
 ```
 Number of clusters to visit during search (tunable).
 
 #### quantizer
 
 ```
-indexIvf.quantizer: ref[Index]
+quantizer: ref[Index]
 ```
 Quantizer index.
 
 #### ownFields
 
 ```
-indexIvf.ownFields: Int
+ownFields: Int
 ```
 Whether index owns its fields.
+
+**Additional methods:**
 
 #### mergeFrom
 
 ```
-func indexIvf.mergeFrom(other: ref[IndexIvf], addId: Int[64]): Int
+handler this.mergeFrom(other: ref[IndexIvf], addId: Int[64]): Int
 ```
 Merge another IVF index.
 
 #### copySubsetTo
 
 ```
-func indexIvf.copySubsetTo(other: ref[IndexIvf], subsetType: Int, a1: Int[64], a2: Int[64]): Int
+handler this.copySubsetTo(other: ref[IndexIvf], subsetType: Int, a1: Int[64], a2: Int[64]): Int
 ```
 Copy subset of vectors.
 
 #### getListSize
 
 ```
-func indexIvf.getListSize(listNo: ArchWord): ArchWord
+handler this.getListSize(listNo: ArchWord): ArchWord
 ```
 Get size of inverted list.
 
 #### makeDirectMap
 
 ```
-func indexIvf.makeDirectMap(newMaintainDirectMap: Int): Int
+handler this.makeDirectMap(newMaintainDirectMap: Int): Int
 ```
 Create direct map for reconstruction.
 
 #### imbalanceFactor
 
 ```
-indexIvf.imbalanceFactor: Float[64]
+handler this.imbalanceFactor: Float[64]
 ```
 Get cluster imbalance factor.
 
 #### printStats
 
 ```
-func indexIvf.printStats()
+handler this.printStats()
 ```
 Print index statistics.
 
@@ -306,34 +313,38 @@ Index for binary (hamming) vectors. [Guide](https://github.com/facebookresearch/
 
 Similar to Index but operates on binary vectors (Word[8] arrays instead of Float arrays).
 
+**Support Classes**
+
 ### ParameterSpace
 
 Manages index parameters for grid search and tuning. [C API](https://github.com/facebookresearch/faiss/blob/main/c_api/ParameterSpace_c.h)
 
+**Methods:**
+
 #### new
 
 ```
-func ParameterSpace.new(parameterSpace: ref[ref[ParameterSpace]]): Int
+func new(parameterSpace: ref[ref[ParameterSpace]]): Int
 ```
 
 #### setIndexParameter
 
 ```
-func parameterSpace.setIndexParameter(index: ref[Index], paramName: CharsPtr, val: Float[64]): Int
+handler this.setIndexParameter(index: ref[Index], paramName: CharsPtr, val: Float[64]): Int
 ```
 Set single parameter.
 
 #### setIndexParameters
 
 ```
-func parameterSpace.setIndexParameters(index: ref[Index], params: CharsPtr): Int
+handler this.setIndexParameters(index: ref[Index], params: CharsPtr): Int
 ```
 Set multiple parameters.
 
 #### addRange
 
 ```
-func parameterSpace.addRange(name: CharsPtr, outRange: ref[ref[ParameterRange]]): Int
+handler this.addRange(name: CharsPtr, outRange: ref[ref[ParameterRange]]): Int
 ```
 Add parameter range.
 
@@ -341,16 +352,20 @@ Add parameter range.
 
 Runtime search parameters. [C API](https://github.com/facebookresearch/faiss/blob/main/c_api/Index_c.h)
 
+**Methods:**
+
 #### new
 
 ```
-func SearchParameters.new(obj: ref[ref[SearchParameters]], sel: ref[IdSelector]): Int
+func new(obj: ref[ref[SearchParameters]], sel: ref[IdSelector]): Int
 ```
+
+**Properties**
 
 #### nProbe
 
 ```
-searchParameters.nProbe: Int
+nProbe: Int
 ```
 Number of clusters to probe (for IVF indexes).
 
@@ -358,31 +373,35 @@ Number of clusters to probe (for IVF indexes).
 
 Extended search parameters for IVF indexes.
 
+**Methods:**
+
 #### new
 
 ```
-func SearchParametersIvf.new(obj: ref[ref[SearchParametersIvf]]): Int
-func SearchParametersIvf.new(obj: ref[ref[SearchParametersIvf]], sel: ref[IdSelector], nprobe: ArchWord, maxCodes: ArchWord): Int
+func new(obj: ref[ref[SearchParametersIvf]]): Int
+func new(obj: ref[ref[SearchParametersIvf]], sel: ref[IdSelector], nprobe: ArchWord, maxCodes: ArchWord): Int
 ```
+
+**Properties:**
 
 #### sel
 
 ```
-searchParametersIvf.sel: ref[IdSelector]
+sel: ref[IdSelector]
 ```
 ID selector.
 
 #### nProbe
 
 ```
-searchParametersIvf.nProbe: ArchWord
+nProbe: ArchWord
 ```
 Number of clusters to probe.
 
 #### maxCodes
 
 ```
-searchParametersIvf.maxCodes: ArchWord
+maxCodes: ArchWord
 ```
 Maximum codes to scan.
 
@@ -390,60 +409,69 @@ Maximum codes to scan.
 
 K-means clustering implementation. [C API](https://github.com/facebookresearch/faiss/blob/main/c_api/Clustering_c.h)
 
+**Creation:**
+
 #### new
 
 ```
-func Clustering.new(out: ref[ref[Clustering]], d: Int, k: Int): Int
-func Clustering.new(out: ref[ref[Clustering]], d: Int, k: Int, params: ptr[ClusteringParameters]): Int
+func new(out: ref[ref[Clustering]], d: Int, k: Int): Int
+
+func new(out: ref[ref[Clustering]], d: Int, k: Int, params: ptr[ClusteringParameters]): Int
 ```
-Create with dimension and k clusters. Second overload creates with parameters.
+First form create with dimension and k clusters.
+
+Second form create with parameters.
+
+**Methods**
 
 #### train
 
 ```
-func clustering.train(n: Int[64], x: ref[Float], index: ref[Index]): Int
+handler this.train(n: Int[64], x: ref[Float], index: ref[Index]): Int
 ```
 Run k-means.
 
 #### getCentroids
 
 ```
-func clustering.getCentroids(centroids: ref[ref[array[Float]]], size: ref[ArchWord])
+handler this.getCentroids(centroids: ref[ref[array[Float]]], size: ref[ArchWord])
 ```
 Get cluster centroids.
 
 #### getIterationStats
 
 ```
-func clustering.getIterationStats(stats_out: ref[ref[ClusteringIterationStats]], size: ref[ArchWord])
+handler this.getIterationStats(stats_out: ref[ref[ClusteringIterationStats]], size: ref[ArchWord])
 ```
 Get iteration statistics.
+
+**Properties:**
 
 #### niter
 
 ```
-clustering.niter: Int
+niter: Int
 ```
 Number of iterations.
 
 #### nredo
 
 ```
-clustering.nredo: Int
+nredo: Int
 ```
 Number of k-means restarts.
 
 #### k
 
 ```
-clustering.k: ArchWord
+k: ArchWord
 ```
 Number of clusters.
 
 #### d
 
 ```
-clustering.d: ArchWord
+d: ArchWord
 ```
 Vector dimension.
 
@@ -451,7 +479,7 @@ Vector dimension.
 
 Select subsets of vectors by ID. [C API](https://github.com/facebookresearch/faiss/blob/main/c_api/Index_c.h)
 
-Variants:
+**Variants:**
 * `IdSelectorBatch`: Select specific IDs from a list
 * `IdSelectorRange`: Select IDs in a range
 * `IdSelectorBitmap`: Select using a bitmap
@@ -464,37 +492,39 @@ Variants:
 
 Results from range search queries. [C API](https://github.com/facebookresearch/faiss/blob/main/c_api/Index_c.h)
 
+**Methods:**
+
 #### new
 
 ```
-func RangeSearchResult.new(obj: ref[ref[RangeSearchResult]], nq: Int[64]): Int
+func new(obj: ref[ref[RangeSearchResult]], nq: Int[64]): Int
 ```
 
 #### doAllocation
 
 ```
-func rangeSearchResult.doAllocation(): Int
+handler this.doAllocation(): Int
 ```
 Allocate result buffers.
 
 #### bufferSize
 
 ```
-func rangeSearchResult.bufferSize(): ArchWord
+handler this.bufferSize(): ArchWord
 ```
 Get buffer size.
 
 #### getLims
 
 ```
-func rangeSearchResult.getLims(outLims: ref[ref[array[ArchWord]]])
+handler this.getLims(outLims: ref[ref[array[ArchWord]]])
 ```
 Get result limits array.
 
 #### getLabels
 
 ```
-func rangeSearchResult.getLabels(outLabels: ref[ref[array[Int[64]]]], outDistances: ref[ref[ref[Float]]])
+handler this.getLabels(outLabels: ref[ref[array[Int[64]]]], outDistances: ref[ref[ref[Float]]])
 ```
 Get labels and distances.
 
@@ -505,21 +535,21 @@ Compute distances to vectors. [C API](https://github.com/facebookresearch/faiss/
 #### setQuery
 
 ```
-func distanceComputer.setQuery(x: ref[array[Float]]): Int
+handler this.setQuery(x: ref[array[Float]]): Int
 ```
 Set query vector.
 
 #### vectorToQueryDis
 
 ```
-func distanceComputer.vectorToQueryDis(i: Int[64], qd: ref[array[Float]]): Int
+handler this.vectorToQueryDis(i: Int[64], qd: ref[array[Float]]): Int
 ```
 Distance to query.
 
 #### symmetricDis
 
 ```
-func distanceComputer.symmetricDis(i: Int[64], j: Int[64], vd: ref[array[Float]]): Int
+handler this.symmetricDis(i: Int[64], j: Int[64], vd: ref[array[Float]]): Int
 ```
 Symmetric distance.
 
@@ -565,19 +595,15 @@ Standalone k-means.
 
 ## GPU Support
 
-
-
 To enable GPU acceleration, set the environment variable before running:
 
-```
+```bash
 export FAISS_USE_GPU=1
 ```
 
 The library will automatically load GPU-enabled binaries when available. See [FAISS GPU documentation](https://github.com/facebookresearch/faiss/wiki/Faiss-on-the-GPU) for details.
 
 ## Index Factory Strings
-
-
 
 The `Index.new` factory method accepts strings to create different index types:
 
@@ -591,16 +617,12 @@ See the [index factory documentation](https://github.com/facebookresearch/faiss/
 
 ## Examples
 
-
-
 Complete working examples are in the `Examples/` directory:
 
 * **example.alusus**: Basic flat index with inner product search
 * **example2.alusus**: IVF index with parameter tuning
 
 ## Performance Tips
-
-
 
 1. **Index Selection**:
    * Use `IndexFlat` for exact search on datasets <1M vectors
@@ -619,16 +641,12 @@ See [FAISS performance guidelines](https://github.com/facebookresearch/faiss/wik
 
 ## Additional Resources
 
-
-
 * **FAISS GitHub**: https://github.com/facebookresearch/faiss
 * **FAISS Wiki**: https://github.com/facebookresearch/faiss/wiki
 * **Research Paper**: [Billion-scale similarity search with GPUs](https://arxiv.org/abs/1702.08734)
 * **Alusus Language**: https://alusus.org
 
 ## License
-
-
 
 Copyright (c) Facebook, Inc. and its affiliates.
 Copyright (c) Alusus Software Ltd. for the Alusus language bindings.

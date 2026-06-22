@@ -1,4 +1,4 @@
-# فـيس Faiss
+# فـيس (Faiss)
 
 <div dir=rtl>
 
@@ -1165,7 +1165,7 @@ k-means مستقل.
 
 <div dir=ltr>
 
-```bash
+```
 export FAISS_USE_GPU=1
 ```
 
